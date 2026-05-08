@@ -1,0 +1,229 @@
+# Apple Silicon Mac
+# Managed with chezmoi
+
+# ---------- INIT ----------
+
+# Homebrew
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+# anyenv
+command -v anyenv >/dev/null 2>&1 && eval "$(anyenv init -)"
+# sheldon
+command -v sheldon >/dev/null 2>&1 && eval "$(sheldon source)"
+
+# ---------- PATH ----------
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# ---------- FPATH ----------
+
+# 補完機能を有効化するためにFPATHを設定する
+if type brew &>/dev/null; then
+  # Homebrew
+  # NOTE: https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+# ---------- ZSH ----------
+
+# 補完機能を有効化する
+# -i: 安全ではないディレクトリは警告を出さずにスキップする
+# -u: 安全ではないディレクトリを強制的にビルドする
+autoload -Uz compinit
+compinit -i
+
+# 補完機能を矢印キーで選択できるようにする
+zstyle ':completion:*:default' menu select=1
+# 補完で大文字小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完候補表示時にビープ音を鳴らさない
+setopt nolistbeep
+# コマンドラインの引数でも補完を有効にする（--prefix=/userなど）
+setopt magic_equal_subst
+
+# history
+
+# 保存しないコマンド
+# HISTORY_IGNORE="(ls|ll|cd|pwd|exit)"
+HISTORY_IGNORE="(doppler secrets set*)"
+# ファイルに保存される履歴の件数
+SAVEHIST=10000
+# historyを複数端末で共有する
+setopt share_history
+# コマンド履歴の重複を除外する
+setopt hist_ignore_dups
+# historyコマンドは履歴に残さない
+# setopt hist_no_store
+# スペースで始まったら履歴に残さない
+# setopt hist_ignore_space
+# ヒストリを呼び出してから実行する間に確認する
+setopt hist_verify
+
+# カラー定義の読み込み
+autoload -Uz colors
+colors
+
+# ---------- PROMPT ----------
+
+# 自動改行文字を変更
+PROMPT_EOL_MARK="⛔️"
+
+# git ブランチ名を色付きで表示させるメソッド
+function rprompt-git-current-branch {
+  local branch_name branch_status branch color green red yellow reset
+
+  # branch='\ue0a0'
+  branch=''
+  color='%{\e[38;5;' #  文字色を設定
+  green='114m%}'
+  red='001m%}'
+  yellow='227m%}'
+  reset='%{\e[0m%}' # reset
+
+  # git リポジトリでなければ何も返さない（ブランチ名取得を兼ねる）
+  branch_name=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) \
+    || branch_name=$(git rev-parse --short HEAD 2>/dev/null) \
+    || return
+
+  # rebase / merge 中
+  local git_dir
+  git_dir=$(git rev-parse --git-dir 2>/dev/null)
+  if [[ -d "${git_dir}/rebase-merge" || -d "${git_dir}/rebase-apply" ]]; then
+    echo "${color}${red}[${branch}!(no branch)${reset}"
+    return
+  fi
+
+  # 状態判定（git status の代わりに git diff / ls-files で軽量に判定）
+  local has_staged=0 has_unstaged=0 has_untracked=0
+  git diff --quiet --cached 2>/dev/null || has_staged=1
+  git diff --quiet          2>/dev/null || has_unstaged=1
+  [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]] && has_untracked=1
+
+  # 優先順位: untracked > unstaged > staged > clean
+  if   (( has_untracked )); then branch_status="${color}${red}[${branch}?"
+  elif (( has_unstaged ));  then branch_status="${color}${red}[${branch}+"
+  elif (( has_staged ));    then branch_status="${color}${yellow}[${branch}!"
+  else                           branch_status="${color}${green}[${branch}"
+  fi
+
+  # ブランチ名を色付きで表示する
+  echo "${branch_status}$branch_name]${reset}"
+}
+
+# NOTE:
+# %n : ユーザー名
+# %m : ホスト名
+# %~ : カレントディレクトリ
+# %T : 時間（HH:MM）
+# %* : 時間（HH:MM:SS）
+# %D : 日付（YY-MM-DD）
+
+# %F{color}***%f : {}内で***の色指定
+# %Fと%fの代わりに%Kと%kを使うと背景色が変わる(bacKgroundのk)。
+# black   : 0
+# red     : 1
+# green   : 2
+# yellow  : 3
+# blue    : 4
+# magenta : 5
+# cyan    : 6
+# white   : 7
+
+# Select prompt type.
+# local type=default.
+# local type=v1
+# local type=v2
+local type=v3
+
+local p_info="$PROMPT"
+local p_cdir=''
+local p_mark=''
+
+case "$type" in
+v1)
+  p_info='%F{cyan}%* %n@%m%f'
+  p_cdir='%F{yellow}%~%f'
+  p_mark=$'\n%(!.💀.%F{magenta}❯%f) '
+  ;;
+v2)
+  p_info=$'%F{blue}┌──%D{%Y/%m/%d} %*\n│ (%f%F{cyan}%n🍎%m%f%F{blue})%f'
+  p_cdir='%F{blue}-[%f%F{yellow}%~%f%F{blue}]%f'
+  p_mark=$'\n%F{blue}└─%(!.💀.❯%f) '
+  ;;
+# iTerm2 で 「Set locale variables automatically」 のチェックを外すと zsh-completions でコマンドが重複して表示される問題の解消版
+# 参考: https://github.com/ohmyzsh/ohmyzsh/issues/7945#issuecomment-508724741
+# 参考: https://stackoverflow.com/questions/11916064/zsh-tab-completion-duplicating-command-name
+v3)
+  p_info=$'%F{blue}%{%G┌%}%{%G─%}%{%G─%}%D{%Y/%m/%d} %*\n%{%G│%} (%f%F{cyan}%n%{%G🍎%}%m%f%F{blue})%f'
+  p_cdir='%F{blue}-[%f%F{yellow}%~%f%F{blue}]%f'
+  p_mark=$'\n%F{blue}%{%G└%}%{%G─%}%(!.%{%G💀%}.%{%G❯%}%f) '
+  ;;
+esac
+
+# プロンプトの右側にメソッドの結果を表示させる
+# RPROMPT='`rprompt-git-current-branch`'
+local is_show_git_status=yes
+if [ "$is_show_git_status" = yes ]; then
+  PROMPT=$'$p_info$p_cdir `rprompt-git-current-branch`$p_mark'
+else
+  PROMPT=$'$p_info$p_cdir$p_mark'
+fi
+
+# プロンプトが表示されるたびにプロンプト文字列を評価、置換する
+setopt prompt_subst
+
+# コマンドが実行される前に改行を入れる（2回目以降の実行時のみ）
+new_line_before_prompt=yes
+precmd() {
+  # Print a new line before the prompt, but only if it is not the first line
+  if [ "$new_line_before_prompt" = yes ]; then
+    if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
+      _NEW_LINE_BEFORE_PROMPT=1
+    else
+      print ""
+    fi
+  fi
+}
+
+# ---------- alias ----------
+
+if [ -f ~/.zsh_aliases ]; then
+  . ~/.zsh_aliases
+fi
+
+# ---------- zeno ----------
+
+if [[ -n $ZENO_LOADED ]]; then
+  bindkey ' '   zeno-auto-snippet
+  # bindkey '^m'  zeno-auto-snippet-and-accept-line
+  bindkey '^i'  zeno-completion
+  bindkey '^r'  zeno-history-selection
+  bindkey '^x'  zeno-insert-snippet
+  bindkey '^x^z' zeno-toggle-auto-snippet
+  bindkey '^g'  zeno-ghq-cd
+fi
+
+# ---------- Custom Functions ----------
+
+# Claude Code 許可ディレクトリ
+# - 末尾 "/" あり: そのディレクトリ配下のみ許可（ディレクトリ自身は不可）
+# - 末尾 "/" なし: そのディレクトリ自身および配下を許可
+claude_allowed_dirs=(
+  "${HOME}/src/"
+  "${HOME}/.local/share/chezmoi"
+)
+
+claude() {
+  local current_dir
+  current_dir=$(pwd)
+  for dir in "${claude_allowed_dirs[@]}"; do
+    if [[ "$dir" == */ ]]; then
+      [[ "$current_dir" == "$dir"* ]] && { command claude "$@"; return; }
+    else
+      [[ "$current_dir" == "$dir" || "$current_dir" == "$dir"/* ]] && { command claude "$@"; return; }
+    fi
+  done
+  echo $'\e[1;33mWARNING:\e[0m Claude Code is not intended to be launched in this directory!'
+  read "?Are you sure you want to continue? (y/n): " answer
+  [ "$answer" = 'y' ] || { echo 'Aborted.'; return; }
+  command claude "$@"
+}

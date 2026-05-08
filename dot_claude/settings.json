@@ -1,0 +1,84 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh project view:*)",
+      "Bash(gh project item-list:*)",
+      "mcp__github__search_code",
+      "mcp__github__get_file_contents",
+      "mcp__github__issue_read",
+      "mcp__github__pull_request_read"
+    ],
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Read(.env.*)",
+      "Read(**/id_rsa)",
+      "Read(**/id_rsa.pub)",
+      "Read(**/id_ed25519)",
+      "Read(**/id_ed25519.pub)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/.npmrc)",
+      "Read(**/.netrc)",
+      "Read(**/credentials)",
+      "Read(**/*api_key*)",
+      "Read(**/*apikey*)",
+      "Read(**/*access_token*)",
+      "Read(**/*accesstoken*)",
+      "Read(**/*secret*)",
+      "Read(**/*password*)",
+      "Read(**/*passwd*)",
+      "Read(**/*private_key*)",
+      "Read(**/*privatekey*)",
+      "Write(.env*)",
+      "Write(**/secrets/**)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(nc:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm remove:*)",
+      "Bash(psql:*)",
+      "Bash(mysql:*)",
+      "Bash(mongod:*)",
+      "mcp__supabase__execute_sql"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/hook-gh-graphql-guard.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh"
+  },
+  "language": "Japanese",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
+}

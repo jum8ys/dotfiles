@@ -1,0 +1,20 @@
+" 行番号を表示
+set number
+
+"タブ、空白、改行を可視化
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%,space:･
+hi NonText    ctermbg=None ctermfg=246
+hi SpecialKey ctermbg=None ctermfg=246
+
+" シンタックスハイライトの有効化
+syntax enable
+
+" インデントはスマートインデント
+set smartindent
+
+" ビープ音を可視化
+set visualbell
+
+" ステータスラインを常に表示
+set laststatus=2

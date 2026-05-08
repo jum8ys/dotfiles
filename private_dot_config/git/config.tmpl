@@ -1,0 +1,25 @@
+[core]
+	ignorecase = false
+	hooksPath = ~/.config/git/hooks
+[user]
+	name = {{ .git.name }}
+	email = {{ .git.email }}
+{{- if .git.signingkey }}
+	signingkey = {{ .git.signingkey }}
+{{- end }}
+[alias]
+	# 管理対象からignoreされていないファイルを確認
+	unignored = ls-files -ci --exclude-standard
+	# ignoreされていないファイルを管理対象から除外
+	cache-clean = !git rm --cached `git ls-files -ci --exclude-standard`
+[init]
+	defaultBranch = main
+{{- if .git.signingkey }}
+[commit]
+	gpgsign = true
+[gpg]
+	format = {{ .git.signingformat }}
+{{- end }}
+[ghq]
+	root = ~/src
+	root = ~/.local/share

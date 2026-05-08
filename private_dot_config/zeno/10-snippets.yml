@@ -1,0 +1,115 @@
+snippets:
+  # general
+  - name: ls
+    keyword: ls
+    snippet: ls -FG
+  - name: ll
+    keyword: ll
+    snippet: ls -al
+  - name: cp
+    keyword: cp
+    snippet: cp -i
+  - name: mv
+    keyword: mv
+    snippet: mv -i
+  - name: rm
+    keyword: rm
+    snippet: rm -i
+  - name: crontab
+    keyword: crontab
+    snippet: crontab -i
+  - name: relogin
+    keyword: relogin
+    snippet: exec $SHELL -l
+
+  # network
+  - name: curl header only [curlh]
+    keyword: curlh
+    snippet: curl -D - -s -o /dev/null
+  - name: nmap local [nmapl]
+    keyword: nmapl
+    snippet: nmap 127.0.0.1
+
+  # docker compose
+  - name: docker compose [dc]
+    keyword: dc
+    snippet: docker compose
+  - name: docker compose ps [dcps]
+    keyword: dcps
+    snippet: docker compose ps
+  - name: docker compose destroy [dcdestroy]
+    keyword: dcdestroy
+    snippet: docker compose down --rmi all --volumes --remove-orphans
+
+  # terraform
+  - name: terraform [tf]
+    keyword: tf
+    snippet: terraform
+
+  # echo
+  - name: echo PATH [echopath]
+    keyword: echopath
+    snippet: echo $PATH | tr ':' '\n'
+  - name: echo FPATH [echofpath]
+    keyword: echofpath
+    snippet: echo $FPATH | tr ':' '\n'
+
+  # edit config
+  - name: edit dotfiles [dotconf]
+    keyword: dotconf
+    snippet: code ~/.local/share/chezmoi
+  - name: edit ssh config [sshconf]
+    keyword: sshconf
+    snippet: code ~/.ssh
+  
+  # homebrew
+  - name: brew bundle dump [brewdump]
+    keyword: brewdump
+    snippet: brew bundle dump --global --force
+  - name: brew search [brews]
+    keyword: brews
+    snippet: brew search
+  - name: brew info [brewi]
+    keyword: brewi
+    snippet: brew info
+
+  # chezmoi
+  - name: chezmoi add [cmoiadd]
+    keyword: cmoiadd
+    snippet: chezmoi add
+  - name: chezmoi diff [cmoidiff]
+    keyword: cmoidiff
+    snippet: chezmoi diff
+  - name: chezmoi apply [cmoiapply]
+    keyword: cmoiapply
+    snippet: chezmoi apply -v
+  - name: chezmoi re-add [cmoireadd]
+    keyword: cmoireadd
+    snippet: chezmoi re-add
+
+  # snippet and keyword abbrev
+  - name: git status [gs]
+    keyword: gs
+    snippet: git status --short --branch
+
+  # snippet with placeholder
+  - name: git commit message [gcm]
+    keyword: gcm
+    snippet: git commit -m '{{commit_message}}'
+
+  - name: "null"
+    keyword: "null"
+    snippet: ">/dev/null 2>&1"
+    # auto expand condition
+    # If not defined, it is only valid at the beginning of a line.
+    context:
+      # buffer: ''
+      lbuffer: ".+\\s"
+      # rbuffer: ''
+
+  - name: branch [B]
+    keyword: B
+    snippet: git symbolic-ref --short HEAD
+    context:
+      lbuffer: "^git\\s+checkout\\s+"
+    evaluate: true # eval snippet
