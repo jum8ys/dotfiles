@@ -2,15 +2,15 @@ snippets:
   - name: "[cmo] chezmoi"
     keyword: cmo
     snippet: chezmoi
-  - name: "[cmoadd] add file to chezmoi source"
-    keyword: cmoadd
+  - name: "[cmoad] add file to chezmoi source"
+    keyword: cmoad
     snippet: chezmoi add
-  - name: "[cmodiff] preview changes before applying"
-    keyword: cmodiff
+  - name: "[cmodif] preview changes before applying"
+    keyword: cmodif
     snippet: chezmoi diff
-  - name: "[cmoapp] apply source state to home"
-    keyword: cmoapp
+  - name: "[cmoapl] apply source state to home"
+    keyword: cmoapl
     snippet: chezmoi apply -v
-  - name: "[cmoreadd] sync edits back to source"
-    keyword: cmoreadd
+  - name: "[cmorad] sync edits back to source"
+    keyword: cmorad
     snippet: chezmoi re-add
