@@ -8,6 +8,9 @@ snippets:
   - name: "[gs] short status with branch"
     keyword: gs
     snippet: git status --short --branch
+  - name: "[lg] lazygit"
+    keyword: lg
+    snippet: lazygit
   - name: "[gcm] commit with message"
     keyword: gcm
     snippet: git commit -m '{{commit_message}}'

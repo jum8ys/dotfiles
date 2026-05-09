@@ -14,6 +14,11 @@ command -v sheldon >/dev/null 2>&1 && eval "$(sheldon source)"
 
 export PATH="$HOME/.local/bin:$PATH"
 
+# ---------- XDG ----------
+
+# Set the lazygit config file location to ~/.config/lazygit/config.yml.
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 # ---------- FPATH ----------
 
 # 補完機能を有効化するためにFPATHを設定する
