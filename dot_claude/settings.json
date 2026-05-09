@@ -65,6 +65,10 @@
           {
             "type": "command",
             "command": "~/.claude/scripts/hook-gh-graphql-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/hook-git-restore-guard.sh"
           }
         ]
       }
@@ -79,6 +83,7 @@
     "enabled": true,
     "mode": "hold"
   },
+  "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }

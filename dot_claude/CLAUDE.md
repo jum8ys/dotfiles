@@ -6,6 +6,8 @@
 - Commit messages must follow Conventional Commits v1.0.0 with a Gitmoji prefix
 - Before running `git commit`, always show the planned command (including the full commit message) and ask for confirmation, even when the user has already asked to commit
 - Ask for confirmation before running `git push`
+- Split commits by logical unit of change — one concern per commit (e.g. separate refactors, feature additions, and config changes into distinct commits)
+- Use `git restore --staged` instead of `git reset` to unstage files
 
 ### Commit Message Format
 
@@ -61,7 +63,7 @@ BREAKING CHANGE: v1 endpoints have been removed
 
 ## Commands
 
-- Before running any command, briefly explain in plain language what it will do
+- Before running any command, briefly explain in plain language what it will do (in Japanese)
 - Use the `Read` tool instead of `cat`, `head`, or `tail` to read files
 - Use the `Edit` tool instead of `sed` or `awk` to edit files
 - Use the `Write` tool instead of `echo >` or heredoc to write files
