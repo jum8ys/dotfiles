@@ -11,8 +11,8 @@ snippets:
   - name: "[cmoapl] apply source state to home"
     keyword: cmoapl
     snippet: chezmoi apply -v
-  - name: "[cmorad] sync edits back to source"
-    keyword: cmorad
+  - name: "[cmoread] sync edits back to source"
+    keyword: cmoread
     snippet: chezmoi re-add
   - name: "[cmomng] list managed files"
     keyword: cmomng
@@ -22,4 +22,4 @@ snippets:
     snippet: chezmoi destroy
   - name: "[cmoedt] open managed dotfile in VS Code"
     keyword: cmoedt
-    snippet: code --new-window "$(chezmoi managed --include=files --path-style=absolute | fzf)"
+    snippet: "{ file=$(chezmoi managed --include=files --path-style=absolute | fzf) && code --new-window \"$file\"; }"
