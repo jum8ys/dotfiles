@@ -1,0 +1,7 @@
+snippets:
+  - name: "[dotconf] open dotfiles in editor"
+    keyword: dotconf
+    snippet: code ~/.local/share/chezmoi
+  - name: "[sshconf] open SSH config in editor"
+    keyword: sshconf
+    snippet: code ~/.ssh

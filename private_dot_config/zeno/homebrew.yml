@@ -1,0 +1,10 @@
+snippets:
+  - name: "[brewdump] dump installed packages to Brewfile"
+    keyword: brewdump
+    snippet: brew bundle dump --global --force
+  - name: "[brews] search package"
+    keyword: brews
+    snippet: brew search
+  - name: "[brewi] show package info"
+    keyword: brewi
+    snippet: brew info

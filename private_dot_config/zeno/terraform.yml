@@ -1,0 +1,4 @@
+snippets:
+  - name: "[tf] terraform"
+    keyword: tf
+    snippet: terraform

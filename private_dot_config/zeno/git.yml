@@ -1,0 +1,85 @@
+snippets:
+  - name: "[B] current branch name"
+    keyword: B
+    snippet: git symbolic-ref --short HEAD
+    context:
+      lbuffer: "^git\\s+checkout\\s+"
+    evaluate: true
+  - name: "[gs] short status with branch"
+    keyword: gs
+    snippet: git status --short --branch
+  - name: "[gcm] commit with message"
+    keyword: gcm
+    snippet: git commit -m '{{commit_message}}'
+  - name: "[ga] stage files"
+    keyword: ga
+    snippet: git add
+  - name: "[gaa] stage all changes"
+    keyword: gaa
+    snippet: git add --all
+  - name: "[gd] show unstaged diff"
+    keyword: gd
+    snippet: git diff
+  - name: "[gds] show staged diff"
+    keyword: gds
+    snippet: git diff --staged
+  - name: "[glo] log graph (all branches)"
+    keyword: glo
+    snippet: git log --oneline --graph --decorate --all
+  - name: "[gca] amend last commit"
+    keyword: gca
+    snippet: git commit --amend --no-edit
+  - name: "[gb] list local branches"
+    keyword: gb
+    snippet: git branch
+  - name: "[gba] list all branches"
+    keyword: gba
+    snippet: git branch --all
+  - name: "[gbd] delete branch"
+    keyword: gbd
+    snippet: git branch -d {{branch_name}}
+  - name: "[gsw] switch branch"
+    keyword: gsw
+    snippet: git switch
+  - name: "[gswc] create and switch branch"
+    keyword: gswc
+    snippet: git switch -c {{branch_name}}
+  - name: "[gf] fetch remote"
+    keyword: gf
+    snippet: git fetch
+  - name: "[gfa] fetch all remotes and prune"
+    keyword: gfa
+    snippet: git fetch --all --prune
+  - name: "[gpl] pull"
+    keyword: gpl
+    snippet: git pull
+  - name: "[gp] push"
+    keyword: gp
+    snippet: git push
+  - name: "[gpu] push and set upstream"
+    keyword: gpu
+    snippet: git push -u origin HEAD
+  - name: "[gpf] force push (safe)"
+    keyword: gpf
+    snippet: git push --force-with-lease
+  - name: "[gst] stash changes"
+    keyword: gst
+    snippet: git stash
+  - name: "[gstp] pop stash"
+    keyword: gstp
+    snippet: git stash pop
+  - name: "[gstl] list stashes"
+    keyword: gstl
+    snippet: git stash list
+  - name: "[grb] rebase"
+    keyword: grb
+    snippet: git rebase
+  - name: "[grba] abort rebase"
+    keyword: grba
+    snippet: git rebase --abort
+  - name: "[grbc] continue rebase"
+    keyword: grbc
+    snippet: git rebase --continue
+  - name: "[grss] unstage files"
+    keyword: grss
+    snippet: git restore --staged

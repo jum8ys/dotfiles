@@ -1,0 +1,16 @@
+snippets:
+  - name: "[cmo] chezmoi"
+    keyword: cmo
+    snippet: chezmoi
+  - name: "[cmoadd] add file to chezmoi source"
+    keyword: cmoadd
+    snippet: chezmoi add
+  - name: "[cmodiff] preview changes before applying"
+    keyword: cmodiff
+    snippet: chezmoi diff
+  - name: "[cmoapp] apply source state to home"
+    keyword: cmoapp
+    snippet: chezmoi apply -v
+  - name: "[cmoreadd] sync edits back to source"
+    keyword: cmoreadd
+    snippet: chezmoi re-add

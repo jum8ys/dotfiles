@@ -1,0 +1,10 @@
+snippets:
+  - name: "[dc] docker compose"
+    keyword: dc
+    snippet: docker compose
+  - name: "[dcps] list containers"
+    keyword: dcps
+    snippet: docker compose ps
+  - name: "[dcdestroy] destroy all containers and volumes"
+    keyword: dcdestroy
+    snippet: docker compose down --rmi all --volumes --remove-orphans

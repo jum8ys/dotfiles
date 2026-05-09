@@ -1,0 +1,7 @@
+snippets:
+  - name: "[curlh] show response headers only"
+    keyword: curlh
+    snippet: curl -D - -s -o /dev/null
+  - name: "[nmapl] scan localhost"
+    keyword: nmapl
+    snippet: nmap 127.0.0.1

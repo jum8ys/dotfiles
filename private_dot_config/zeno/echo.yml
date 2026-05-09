@@ -1,0 +1,7 @@
+snippets:
+  - name: "[echopath] print PATH entries line by line"
+    keyword: echopath
+    snippet: echo $PATH | tr ':' '\n'
+  - name: "[echofpath] print FPATH entries line by line"
+    keyword: echofpath
+    snippet: echo $FPATH | tr ':' '\n'
