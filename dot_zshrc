@@ -190,6 +190,10 @@ if [ -f ~/.zsh_aliases ]; then
   . ~/.zsh_aliases
 fi
 
+# ---------- fzf ----------
+
+export FZF_DEFAULT_OPTS='--reverse --cycle'
+
 # ---------- zeno ----------
 
 if [[ -n $ZENO_LOADED ]]; then
