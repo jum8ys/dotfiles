@@ -191,10 +191,10 @@ fi
 # Rate limits — 5h
 if [ -n "$rl_five" ]; then
     f=$(printf "%.0f" "$rl_five")
-    f_rem=$((100 - f))
-    case $(( f_rem / 20 )) in
-        0) f_bar="░░░░░" ;; 1) f_bar="█░░░░" ;; 2) f_bar="██░░░" ;;
-        3) f_bar="███░░" ;; 4) f_bar="████░" ;; *) f_bar="█████" ;;
+    f_rem=$(( 100 - f ))
+    case $(( f / 20 )) in
+        0) f_bar="█████" ;; 1) f_bar="████░" ;; 2) f_bar="███░░" ;;
+        3) f_bar="██░░░" ;; 4) f_bar="█░░░░" ;; *) f_bar="░░░░░" ;;
     esac
     arrow5=$(pace_arrow "$rl_five" "$rl_resets_5h" 18000 "$now")
 
@@ -207,30 +207,34 @@ if [ -n "$rl_five" ]; then
         t5=$(fmt_time $(( (rl_resets_5h - now) / 60 )))
 
     if [ -n "$t5" ]; then
-        add "${dim}5h${reset} ${pct_color}${t5}:${f_bar}${f}%${arrow5}${reset}"
+        add "${dim}5h${reset} ${pct_color}${t5}:${f_bar}${f_rem}%${arrow5}${reset}"
     else
-        add "${dim}5h${reset} ${pct_color}${f_bar}${f}%${arrow5}${reset}"
+        add "${dim}5h${reset} ${pct_color}${f_bar}${f_rem}%${arrow5}${reset}"
     fi
 fi
 
 # Rate limits — 7d
 if [ -n "$rl_seven" ]; then
     s=$(printf "%.0f" "$rl_seven")
-    s_rem=$((100 - s))
-    case $(( s_rem / 20 )) in
-        0) s_bar="░░░░░" ;; 1) s_bar="█░░░░" ;; 2) s_bar="██░░░" ;;
-        3) s_bar="███░░" ;; 4) s_bar="████░" ;; *) s_bar="█████" ;;
+    s_rem=$(( 100 - s ))
+    case $(( s / 20 )) in
+        0) s_bar="█████" ;; 1) s_bar="████░" ;; 2) s_bar="███░░" ;;
+        3) s_bar="██░░░" ;; 4) s_bar="█░░░░" ;; *) s_bar="░░░░░" ;;
     esac
     arrow7=$(pace_arrow "$rl_seven" "$rl_resets_7d" 604800 "$now")
+
+    if   [ "$s" -ge 80 ]; then pct_color7="$red"
+    elif [ "$s" -ge 50 ]; then pct_color7="$yellow"
+    else pct_color7="$cyan"; fi
 
     t7=""
     [ -n "$rl_resets_7d" ] && [ "$rl_resets_7d" -gt "$now" ] 2>/dev/null && \
         t7=$(fmt_time $(( (rl_resets_7d - now) / 60 )))
 
     if [ -n "$t7" ]; then
-        add "${dim}7d${reset} ${cyan}${t7}:${s_bar}${s}%${arrow7}${reset}"
+        add "${dim}7d${reset} ${pct_color7}${t7}:${s_bar}${s_rem}%${arrow7}${reset}"
     else
-        add "${dim}7d${reset} ${cyan}${s_bar}${s}%${arrow7}${reset}"
+        add "${dim}7d${reset} ${pct_color7}${s_bar}${s_rem}%${arrow7}${reset}"
     fi
 fi
 
