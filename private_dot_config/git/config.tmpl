@@ -1,6 +1,7 @@
 [core]
 	ignorecase = false
 	hooksPath = ~/.config/git/hooks
+	pager = delta
 [user]
 	name = {{ .git.name }}
 	email = {{ .git.email }}
@@ -23,3 +24,5 @@
 [ghq]
 	root = ~/src
 	root = ~/.local/share
+[include]
+    path = ~/.config/delta/delta.gitconfig
