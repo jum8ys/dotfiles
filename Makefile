@@ -1,63 +1,75 @@
 .DEFAULT_GOAL := help
 
+# Colors
+BOLD   := \033[1m
+DIM    := \033[2m
+GREEN  := \033[32m
+YELLOW := \033[33m
+CYAN   := \033[36m
+RESET  := \033[0m
+
 .PHONY: install local-claude-rules local-zshrc
 
 install: ## Set up this repository on a new machine
-	@echo ">>> chezmoi dotfiles setup"
+	@printf "$(BOLD)$(CYAN)▶ chezmoi dotfiles setup$(RESET)\n"
 	@echo ""
+	@printf "$(BOLD)[1/4] .chezmoidata.toml$(RESET)\n"
 	@if [ ! -f .chezmoidata.toml ]; then \
-		echo "[1/4] Copying .chezmoidata.toml from .chezmoidata.toml.example..."; \
 		cp .chezmoidata.toml.example .chezmoidata.toml; \
-		echo "      Opening in $${EDITOR:-vim}. Fill in the values and save."; \
+		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
+		printf "      Opening in $${EDITOR:-vim}. Fill in the values and save.\n"; \
 		$${EDITOR:-vim} .chezmoidata.toml; \
 	else \
-		echo "[1/4] .chezmoidata.toml already exists. Skipping."; \
+		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
 	fi
 	@echo ""
+	@printf "$(BOLD)[2/4] dot_claude/settings.json$(RESET)\n"
 	@if [ ! -f dot_claude/settings.json ]; then \
-		echo "[2/4] Copying dot_claude/settings.json from dot_claude/settings.json.example..."; \
 		cp dot_claude/settings.json.example dot_claude/settings.json; \
+		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
 	else \
-		echo "[2/4] dot_claude/settings.json already exists. Skipping."; \
+		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
 	fi
 	@echo ""
-	@echo "[3/4] Previewing changes (chezmoi diff):"
-	@echo "---"
+	@printf "$(BOLD)[3/4] chezmoi apply$(RESET)\n"
+	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
 	@chezmoi diff || true
-	@echo "---"
+	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
 	@printf "Run chezmoi apply? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		chezmoi apply -v; \
+		printf "$(GREEN)✓ Applied$(RESET)\n"; \
 	else \
-		echo "Skipped."; \
+		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
-	@echo "[4/4] Install Homebrew packages"
+	@printf "$(BOLD)[4/4] Homebrew packages$(RESET)\n"
 	@printf "Run brew bundle --global? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		brew bundle --global; \
+		printf "$(GREEN)✓ Done$(RESET)\n"; \
 	else \
-		echo "Skipped."; \
+		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
-	@echo ">>> Setup complete!"
+	@printf "$(BOLD)$(GREEN)✓ Setup complete!$(RESET)\n"
 
 local-claude-rules: ## Copy dot_claude/CLAUDE.local.md from example (machine-specific Claude Code rules)
 	@if [ ! -f dot_claude/CLAUDE.local.md ]; then \
-		echo "Copying dot_claude/CLAUDE.local.md from dot_claude/CLAUDE.local.md.example..."; \
 		cp dot_claude/CLAUDE.local.md.example dot_claude/CLAUDE.local.md; \
+		printf "$(GREEN)✓ Created dot_claude/CLAUDE.local.md$(RESET)\n"; \
 	else \
-		echo "dot_claude/CLAUDE.local.md already exists. Skipping."; \
+		printf "$(YELLOW)→ dot_claude/CLAUDE.local.md already exists. Skipping.$(RESET)\n"; \
 	fi
 
 local-zshrc: ## Copy dot_zshrc.local from example (machine-specific shell settings)
 	@if [ ! -f dot_zshrc.local ]; then \
-		echo "Copying dot_zshrc.local from dot_zshrc.local.example..."; \
 		cp dot_zshrc.local.example dot_zshrc.local; \
+		printf "$(GREEN)✓ Created dot_zshrc.local$(RESET)\n"; \
 	else \
-		echo "dot_zshrc.local already exists. Skipping."; \
+		printf "$(YELLOW)→ dot_zshrc.local already exists. Skipping.$(RESET)\n"; \
 	fi
 
 help: ## Show available make targets
