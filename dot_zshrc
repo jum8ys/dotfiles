@@ -236,3 +236,7 @@ claude() {
   [ "$answer" = 'y' ] || { echo 'Aborted.'; return; }
   command claude "$@"
 }
+
+# ---------- Machine-specific overrides ----------
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

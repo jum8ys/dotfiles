@@ -1,0 +1,8 @@
+# ~/.zshrc.local
+#
+# Machine-specific shell configuration that is not tracked by chezmoi.
+# Copy this file to ~/.zshrc.local and add your environment-specific settings.
+#
+# Examples:
+#   export JAVA_HOME=/usr/local/opt/openjdk
+#   alias work='cd ~/src/work'
