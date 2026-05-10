@@ -5,22 +5,29 @@ install: ## Set up this repository on a new machine
 	@echo ">>> chezmoi dotfiles setup"
 	@echo ""
 	@if [ ! -f .chezmoidata.toml ]; then \
-		echo "[1/4] Copying .chezmoidata.toml from .chezmoidata.toml.example..."; \
+		echo "[1/5] Copying .chezmoidata.toml from .chezmoidata.toml.example..."; \
 		cp .chezmoidata.toml.example .chezmoidata.toml; \
 		echo "      Opening in $${EDITOR:-vim}. Fill in the values and save."; \
 		$${EDITOR:-vim} .chezmoidata.toml; \
 	else \
-		echo "[1/4] .chezmoidata.toml already exists. Skipping."; \
+		echo "[1/5] .chezmoidata.toml already exists. Skipping."; \
+	fi
+	@echo ""
+	@if [ ! -f dot_claude/settings.json ]; then \
+		echo "[2/5] Copying dot_claude/settings.json from dot_claude/settings.json.example..."; \
+		cp dot_claude/settings.json.example dot_claude/settings.json; \
+	else \
+		echo "[2/5] dot_claude/settings.json already exists. Skipping."; \
 	fi
 	@echo ""
 	@if [ ! -f dot_zshrc.local ]; then \
-		echo "[2/4] Copying dot_zshrc.local from dot_zshrc.local.example..."; \
+		echo "[3/5] Copying dot_zshrc.local from dot_zshrc.local.example..."; \
 		cp dot_zshrc.local.example dot_zshrc.local; \
 	else \
-		echo "[2/4] dot_zshrc.local already exists. Skipping."; \
+		echo "[3/5] dot_zshrc.local already exists. Skipping."; \
 	fi
 	@echo ""
-	@echo "[3/4] Previewing changes (chezmoi diff):"
+	@echo "[4/5] Previewing changes (chezmoi diff):"
 	@echo "---"
 	@chezmoi diff || true
 	@echo "---"
@@ -32,7 +39,7 @@ install: ## Set up this repository on a new machine
 		echo "Skipped."; \
 	fi
 	@echo ""
-	@echo "[4/4] Install Homebrew packages"
+	@echo "[5/5] Install Homebrew packages"
 	@printf "Run brew bundle --global? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \

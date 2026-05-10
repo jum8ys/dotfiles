@@ -4,3 +4,4 @@ LICENSE
 Makefile
 .chezmoidata.toml.example
 .zshrc.local.example
+.claude/settings.json.example
