@@ -69,3 +69,7 @@ BREAKING CHANGE: v1 endpoints have been removed
 - Use the `Edit` tool instead of `sed` or `awk` to edit files
 - Use the `Write` tool instead of `echo >` or heredoc to write files
 - Use `gh` CLI for all GitHub operations instead of `curl` API calls
+
+## Machine-specific overrides
+
+@~/.claude/CLAUDE.local.md

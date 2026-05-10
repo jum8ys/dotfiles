@@ -1,0 +1,12 @@
+# CLAUDE.local.md
+
+Machine-specific overrides for ~/.claude/CLAUDE.md.
+Rules here take precedence over the base rules.
+
+## Examples
+
+<!-- Override language -->
+<!-- - Always respond in Japanese. -->
+
+<!-- Override commit message language -->
+<!-- - Always write commit messages in Japanese. -->

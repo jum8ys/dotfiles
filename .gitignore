@@ -1,3 +1,4 @@
 .chezmoidata.toml
 dot_zshrc.local
 dot_claude/settings.json
+dot_claude/CLAUDE.local.md

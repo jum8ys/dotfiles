@@ -5,3 +5,4 @@ Makefile
 .chezmoidata.toml.example
 .zshrc.local.example
 .claude/settings.json.example
+.claude/CLAUDE.local.md.example
