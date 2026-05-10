@@ -9,6 +9,8 @@
 command -v anyenv >/dev/null 2>&1 && eval "$(anyenv init -)"
 # sheldon
 command -v sheldon >/dev/null 2>&1 && eval "$(sheldon source)"
+# Worktrunk
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
 # ---------- PATH ----------
 

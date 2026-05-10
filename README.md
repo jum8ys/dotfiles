@@ -9,6 +9,7 @@ Jum8ys's dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 | [sheldon](https://sheldon.cli.rs/) | Zsh plugin manager |
 | [zeno](https://github.com/yuki-yano/zeno.zsh) | Zsh snippet and fuzzy completion |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
+| [worktrunk](https://github.com/max-sixty/worktrunk) | Git worktree manager |
 
 ## Prerequisites
 
