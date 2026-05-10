@@ -8,6 +8,7 @@ Jum8ys's dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 | --- | --- |
 | [sheldon](https://sheldon.cli.rs/) | Zsh plugin manager |
 | [zeno](https://github.com/yuki-yano/zeno.zsh) | Zsh snippet and fuzzy completion |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
 
 ## Prerequisites
 
@@ -21,68 +22,61 @@ Jum8ys's dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 brew install chezmoi
 ```
 
-### 2. Initialize chezmoi with dotfiles repo
+### 2. Initialize chezmoi with this repo
 
 ```shell
 chezmoi init git@github.com:jum8ys/dotfiles.git
 ```
 
-### 3. Copy `.chezmoidata.toml`
+### 3. Run the interactive setup
 
 ```shell
-chezmoi cd
-cp .chezmoidata.toml.example .chezmoidata.toml
+cd ~/.local/share/chezmoi
+make install
 ```
 
-Set variables to `.chezmoidata.toml`.
+The setup walks you through these steps.
 
-### 4. Check what changes
+1. Creating `.chezmoidata.toml` from the example and opening it in your editor
+2. Creating `dot_zshrc.local` from the example for machine-specific shell settings
+3. Previewing and applying changes with `chezmoi apply`
+4. Installing Homebrew packages with `brew bundle --global`
 
-```shell
-chezmoi diff
+> **Note:** `dot_Brewfile` only tracks the base CLI tools required by these dotfiles. Personal additions (casks, VS Code extensions, etc.) live in your local `~/.Brewfile` and are not synced back to the source.
+
+## Machine-specific shell settings
+
+`~/.zshrc.local` is sourced at the end of `~/.zshrc` and is not tracked by git.
+Add environment-specific configuration here.
+
+```zsh
+# Examples:
+# export JAVA_HOME=/usr/local/opt/openjdk
+# alias work='cd ~/src/work'
 ```
 
-### 5. If you are happy with the changes that chezmoi will make then run
+
+## How to edit dotfiles
+
+### Edit the deployed file directly
 
 ```shell
-chezmoi apply -v
+vim ~/.zshrc
+chezmoi re-add   # sync changes back to source
 ```
 
-`-v`: verbose
-
-### 6. Install base packages from the Brewfile
+### Edit via chezmoi
 
 ```shell
-brew bundle --global
+chezmoi edit ~/.zshrc   # opens source file in $EDITOR
+chezmoi apply           # deploy changes to ~
 ```
 
-Note: `dot_Brewfile` only tracks the base CLI tools required by these dotfiles. Personal additions (casks, VS Code extensions, npm packages) live in your local `~/.Brewfile` and are not synced back to the source.
-
-## How to Edit
-
-### 1. Edit the target file directly
+### Commit and push
 
 ```shell
-vim ~/.bashrc
-```
-
-### 2. Re-add the changes to the source state
-
-```shell
-chezmoi re-add
-```
-
-### 3. See what changes have been captured
-
-```shell
-chezmoi cd
-git diff
-```
-
-### 4. Commit your changes and git push
-
-```shell
-git add .
-git commit -m "Commit message"
+cd ~/.local/share/chezmoi
+git add <files>
+git commit -m "..."
 git push
 ```
