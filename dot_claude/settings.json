@@ -71,6 +71,15 @@
             "command": "~/.claude/scripts/hook-git-restore-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"additionalContext\": \"Reminder: Before running any command, always explain in Japanese what it will do.\"}}'"
+          }
+        ]
       }
     ],
     "Notification": [
