@@ -1,0 +1,35 @@
+snippets:
+  - name: "[wtls] list worktrees"
+    keyword: wtls
+    snippet: wt list
+  - name: "[wtlsf] list worktrees with full details"
+    keyword: wtlsf
+    snippet: wt list --full
+  - name: "[wtsw] switch to worktree"
+    keyword: wtsw
+    snippet: wt switch
+  - name: "[wtswc] create and switch to new worktree"
+    keyword: wtswc
+    snippet: wt switch --create
+  - name: "[wtmg] merge worktree branch"
+    keyword: wtmg
+    snippet: wt merge
+  - name: "[wtrm] remove worktree"
+    keyword: wtrm
+    snippet: wt remove
+
+completions:
+  - name: wt switch
+    patterns:
+      - "^wt switch $"
+    sourceCommand: "wt list --format json | jq -r '.[].branch'"
+    options:
+      --prompt: "'Worktree> '"
+
+  - name: wt remove
+    patterns:
+      - "^wt remove $"
+    sourceCommand: "wt list --format json | jq -r '.[].branch'"
+    options:
+      --multi: true
+      --prompt: "'Remove Worktree> '"
