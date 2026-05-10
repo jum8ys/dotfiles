@@ -16,7 +16,7 @@ snippets:
     snippet: chezmoi re-add
   - name: "[cmomng] list managed files"
     keyword: cmomng
-    snippet: chezmoi managed
+    snippet: chezmoi managed --include=files --path-style=absolute
   - name: "[cmodstr] remove file from chezmoi management"
     keyword: cmodstr
     snippet: chezmoi destroy
