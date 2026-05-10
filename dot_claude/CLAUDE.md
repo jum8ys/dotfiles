@@ -8,6 +8,7 @@
 - Ask for confirmation before running `git push`
 - Split commits by logical unit of change — one concern per commit (e.g. separate refactors, feature additions, and config changes into distinct commits)
 - Use `git restore --staged` instead of `git reset` to unstage files
+- Do not use `git -C <path>` when already in the correct working directory
 
 ### Commit Message Format
 
