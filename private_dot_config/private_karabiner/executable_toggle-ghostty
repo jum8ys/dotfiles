@@ -1,0 +1,10 @@
+#!/usr/bin/osascript
+-- Prerequisite: right-click the Ghostty icon in the Dock → Options → "Assign to All Desktops"
+-- so Ghostty appears on every Space and never pulls you to another desktop.
+
+tell application "System Events" to set frontApp to name of first application process whose frontmost is true
+if frontApp is "Ghostty" then
+    tell application "System Events" to set visible of process "Ghostty" to false
+else
+    tell application "Ghostty" to activate
+end if

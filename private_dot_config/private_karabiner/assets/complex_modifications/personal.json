@@ -1,0 +1,128 @@
+{
+  "title": "Personal",
+  "rules": [
+    {
+      "description": "Double tap left/right control to toggle Ghostty",
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "name": "left_control_tapped",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "left_control",
+            "modifiers": { "optional": ["caps_lock"] }
+          },
+          "to": [
+            {
+              "key_code": "left_control",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [{ "shell_command": "~/.config/karabiner/toggle-ghostty" }],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "left_control",
+            "modifiers": { "optional": ["caps_lock"] }
+          },
+          "parameters": { "basic.to_delayed_action_delay_milliseconds": 300 },
+          "to": [
+            {
+              "set_variable": {
+                "name": "left_control_tapped",
+                "value": 1
+              }
+            },
+            {
+              "key_code": "left_control",
+              "lazy": true
+            }
+          ],
+          "to_delayed_action": {
+            "to_if_canceled": [
+              {
+                "set_variable": {
+                  "name": "left_control_tapped",
+                  "value": 0
+                }
+              }
+            ],
+            "to_if_invoked": [
+              {
+                "set_variable": {
+                  "name": "left_control_tapped",
+                  "value": 0
+                }
+              }
+            ]
+          },
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "right_control_tapped",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "right_control",
+            "modifiers": { "optional": ["caps_lock"] }
+          },
+          "to": [
+            {
+              "key_code": "right_control",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [{ "shell_command": "~/.config/karabiner/toggle-ghostty" }],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "right_control",
+            "modifiers": { "optional": ["caps_lock"] }
+          },
+          "parameters": { "basic.to_delayed_action_delay_milliseconds": 300 },
+          "to": [
+            {
+              "set_variable": {
+                "name": "right_control_tapped",
+                "value": 1
+              }
+            },
+            {
+              "key_code": "right_control",
+              "lazy": true
+            }
+          ],
+          "to_delayed_action": {
+            "to_if_canceled": [
+              {
+                "set_variable": {
+                  "name": "right_control_tapped",
+                  "value": 0
+                }
+              }
+            ],
+            "to_if_invoked": [
+              {
+                "set_variable": {
+                  "name": "right_control_tapped",
+                  "value": 0
+                }
+              }
+            ]
+          },
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
