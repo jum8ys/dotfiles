@@ -35,6 +35,7 @@
 | ✨ | `feat` | New feature |
 | 🐛 | `fix` | Bug fix |
 | 🚑️ | `fix` | Critical hotfix |
+| 🔒 | `security` | Security fixes and improvements |
 | 📝 | `docs` | Documentation only |
 | 🎨 | `style` | Formatting, whitespace (no logic change) |
 | ♻️ | `refactor` | Neither fix nor feature |
@@ -43,6 +44,7 @@
 | 📦️ | `build` | Build system or dependencies |
 | 👷 | `ci` | CI/CD configuration |
 | 🔧 | `chore` | Tooling, config, maintenance |
+| 💄 | `ui` | UI and style file changes |
 | ⏪️ | `revert` | Revert a previous commit |
 | 💥 | any + `!` | Breaking change (combine with type emoji) |
 
