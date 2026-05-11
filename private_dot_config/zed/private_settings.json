@@ -1,0 +1,62 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "agent_servers": {},
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "session": {
+    "trust_all_worktrees": false,
+  },
+  "terminal": {
+    "max_scroll_history_lines": 200000,
+  },
+  "project_panel": {
+    "auto_fold_dirs": false,
+  },
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "minimap": {
+    "thumb": "always",
+  },
+  "current_line_highlight": "all",
+  "file_types": {
+    "ignore": [".ebignore", ".ebignore"],
+    "dotenv": [".env.*", "*.env.example", ".env.*", "*.env.example"],
+    "php": ["*.php.example", "*.php.example"],
+    "jsonc": ["*.json.*", "*.json.*"],
+  },
+  "colorize_brackets": true,
+  "show_whitespaces": "all",
+  "show_edit_predictions": true,
+  "ensure_final_newline_on_save": true,
+  "indent_guides": {
+    "enabled": false,
+  },
+  "wrap_guides": [40, 80, 120, 160, 200],
+  "soft_wrap": "none",
+  "base_keymap": "VSCode",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Ayu Dark",
+  },
+  "experimental.theme_overrides": {
+    "editor.document_highlight.bracket_background": "#ffe1004d",
+  },
+}
