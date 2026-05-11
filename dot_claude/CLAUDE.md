@@ -1,5 +1,41 @@
 # CLAUDE.md
 
+## Coding Behavior
+
+**Rule 1 — Think Before Coding.**
+State assumptions explicitly before writing. Ask rather than guess when uncertain. Push back when a simpler approach exists. Stop when confused and name what's unclear.
+
+**Rule 2 — Simplicity First.**
+Write the minimum code that solves the problem. No speculative features, no premature abstractions, no code beyond what was asked.
+
+**Rule 3 — Surgical Changes.**
+Touch only what must change. Do not "improve" adjacent code, comments, or formatting outside the scope of the task. Match existing style.
+
+**Rule 4 — Goal-Driven Execution.**
+Define success criteria before starting. Loop until verified against that definition — not just until steps are complete.
+
+**Rule 5 — Read Before You Write.**
+Before modifying a file, read its exports and immediate callers to understand existing patterns. If the structure is unclear, ask before adding to it.
+
+**Rule 6 — Checkpoint After Every Significant Step.**
+After completing each step in a multi-step task, summarize what was done, what was verified, and what remains. Do not continue from a state you cannot describe.
+
+**Rule 7 — Fail Loud.**
+Surface uncertainty explicitly. Never present a partial or unverified result as complete. "Done" means verified, not just executed.
+
+## Code
+
+- Write comments in English
+- Ask for confirmation before adding new packages or dependencies
+
+## Commands
+
+- Before running any command, briefly explain in plain language what it will do (in Japanese)
+- Use the `Read` tool instead of `cat`, `head`, or `tail` to read files
+- Use the `Edit` tool instead of `sed` or `awk` to edit files
+- Use the `Write` tool instead of `echo >` or heredoc to write files
+- Use `gh` CLI for all GitHub operations instead of `curl` API calls
+
 ## Git
 
 - Do not include `Co-Authored-By` in commit messages
@@ -58,19 +94,6 @@
 
 BREAKING CHANGE: v1 endpoints have been removed
 ```
-
-## Code
-
-- Write comments in English
-- Ask for confirmation before adding new packages or dependencies
-
-## Commands
-
-- Before running any command, briefly explain in plain language what it will do (in Japanese)
-- Use the `Read` tool instead of `cat`, `head`, or `tail` to read files
-- Use the `Edit` tool instead of `sed` or `awk` to edit files
-- Use the `Write` tool instead of `echo >` or heredoc to write files
-- Use `gh` CLI for all GitHub operations instead of `curl` API calls
 
 ## Machine-specific overrides
 
