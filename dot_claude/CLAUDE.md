@@ -40,7 +40,7 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 
 - Do not include `Co-Authored-By` in commit messages
 - Commit messages must follow Conventional Commits v1.0.0 with a Gitmoji prefix
-- Before running `git commit`, always show the planned command (including the full commit message) and ask for confirmation, even when the user has already asked to commit
+- Before running `git commit`, always show the planned command including the full commit message
 - Ask for confirmation before running `git push`
 - Split commits by logical unit of change — one concern per commit (e.g. separate refactors, feature additions, and config changes into distinct commits)
 - Use `git restore --staged` instead of `git reset` to unstage files
