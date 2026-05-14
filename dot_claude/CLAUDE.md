@@ -82,6 +82,7 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 | 🔧 | `chore` | Tooling, config, maintenance |
 | 💄 | `ui` | UI and style file changes |
 | ⏪️ | `revert` | Revert a previous commit |
+| 🔖 | `release` | Release / version tags |
 | 💥 | any + `!` | Breaking change (combine with type emoji) |
 
 **Examples:**
