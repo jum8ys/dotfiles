@@ -1,6 +1,8 @@
 brew "anyenv"
 brew "chezmoi"
+brew "commitlint"
 brew "coreutils"
+brew "czg"
 brew "deno"
 brew "fzf"
 brew "gh"
