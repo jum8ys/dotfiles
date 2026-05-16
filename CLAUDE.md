@@ -36,7 +36,7 @@ chezmoi cd                    # Open a subshell in the source directory
 brew bundle --global          # Install/sync Homebrew packages from dot_Brewfile
 ```
 
-The typical edit workflow is: edit the deployed file directly in `~`, then run `chezmoi re-add` to sync the change back to the source. Alternatively, use `chezmoi edit --apply ~/.foo` to edit and apply in one step.
+The typical edit workflow is: edit the **source file** in this repository directly, then run `chezmoi apply` to deploy the change to `~`. Never edit the deployed files under `~` directly.
 
 ## Source State Attributes
 
