@@ -3,3 +3,5 @@
     email = ""
     signingkey = ""  # GPG key ID (e.g. "XXXXXXXXXXXXXXXX") or SSH public key path (e.g. "~/.ssh/id_ed25519.pub")
     signingformat = "openpgp"  # "openpgp" or "ssh"
+[czg]
+    openAIToken = ""
