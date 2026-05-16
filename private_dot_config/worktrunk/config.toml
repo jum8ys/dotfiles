@@ -25,7 +25,7 @@
 #
 # Default — sibling directory (`~/code/myproject.feature-auth`):
 #
-worktree-path = "{{ repo_path }}/../{{ repo }}.{{ branch | sanitize }}"
+worktree-path = "{{ repo_path }}/../{{ repo }}.worktrees/{{ branch | sanitize }}"
 #
 # Inside the repository (`~/code/myproject/.worktrees/feature-auth`):
 #
