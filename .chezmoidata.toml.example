@@ -5,3 +5,5 @@
     signingformat = "openpgp"  # "openpgp" or "ssh"
 [czg]
     openAIToken = ""
+[czg.commit]
+    lang = "en" # Language code for commit messages (e.g. "en" for English, "ja" for Japanese)

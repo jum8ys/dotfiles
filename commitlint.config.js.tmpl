@@ -88,6 +88,10 @@ export default {
     emojiAlign: "center",
     useAI: false,
     aiNumber: 3,
+{{- if eq .czg.commit.lang "ja" }}
+    aiQuestionCB: ({ maxSubjectLength, diff }) =>
+      `以下の Git diff に対して、現在形で簡潔かつ的確な Git コミットメッセージの説明文を日本語で書いてください。接頭辞は付けず、${maxSubjectLength} 文字以内にすること: \`\`\`diff\n${diff}\n\`\`\``,
+{{- end }}
     themeColorCode: "",
     scopes: [],
     allowCustomScopes: true,
