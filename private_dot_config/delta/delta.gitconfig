@@ -2,10 +2,22 @@
   diffFilter = delta --color-only
 
 [delta]
+  features = line-numbers
   navigate = true  # use n and N to move between diff sections
   dark = true      # or light = true, or omit for auto-detection
-  line-numbers = true
+  syntax-theme = Dracula
   side-by-side = true
+  minus-style          = syntax "#64170e"
+  minus-emph-style     = syntax "#b01200"
+  plus-style           = syntax "#1d5600"
+  plus-emph-style      = syntax "#2c8a00"
+  keep-plus-minus-markers = true
+  true-color              = auto
+  width                   = variable
+
+[delta "line-numbers"]
+  line-numbers-minus-style = red
+  line-numbers-plus-style = green
 
 [merge]
   conflictStyle = zdiff3
