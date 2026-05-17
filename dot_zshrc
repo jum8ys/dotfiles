@@ -52,16 +52,20 @@ setopt magic_equal_subst
 # 保存しないコマンド
 # HISTORY_IGNORE="(ls|ll|cd|pwd|exit)"
 HISTORY_IGNORE="(doppler secrets set*)"
+# メモリ上に保持する履歴の件数（zeno-history-selection の上限に直結）
+HISTSIZE=100000
 # ファイルに保存される履歴の件数
-SAVEHIST=10000
+SAVEHIST=100000
 # historyを複数端末で共有する
 setopt share_history
-# コマンド履歴の重複を除外する
+# 直前のコマンドの重複を削除
 setopt hist_ignore_dups
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
 # historyコマンドは履歴に残さない
 # setopt hist_no_store
 # スペースで始まったら履歴に残さない
-# setopt hist_ignore_space
+setopt hist_ignore_space
 # ヒストリを呼び出してから実行する間に確認する
 setopt hist_verify
 
