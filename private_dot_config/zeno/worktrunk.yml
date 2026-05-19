@@ -10,7 +10,13 @@ snippets:
     snippet: wt switch
   - name: "[wtswc] create and switch to new worktree"
     keyword: wtswc
-    snippet: wt switch --create
+    snippet: wt switch --create {{branch_name}}
+  - name: "[wtswcb] create and switch to new worktree from base branch"
+    keyword: wtswcb
+    snippet: wt switch --create {{branch_name}} --base
+  - name: "[wtswpr] switch to GitHub PR worktree"
+    keyword: wtswpr
+    snippet: "wt switch pr:{{pr_number}}"
   - name: "[wtmg] merge worktree branch"
     keyword: wtmg
     snippet: wt merge
@@ -25,6 +31,13 @@ completions:
     sourceCommand: "wt list --format json | jq -r '.[].branch'"
     options:
       --prompt: "'Worktree> '"
+
+  - name: wt switch --create --base
+    patterns:
+      - "^wt switch --create \\S+ --base $"
+    sourceCommand: "git branch --format='%(refname:short)'"
+    options:
+      --prompt: "'Base Branch> '"
 
   - name: wt remove
     patterns:
