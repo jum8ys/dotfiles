@@ -1,0 +1,200 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+
+  // This file uses JSON with comments (JSONC).
+  // Uncomment and edit any setting to make it file-managed.
+  // Remove a setting to fall back to the value saved in Settings.
+  // cmux creates this template on launch when ~/.config/cmux/cmux.json is missing.
+  // Legacy settings.json files are read only as fallback for keys not present here.
+
+  "app": {
+    "appIcon": "automatic",
+    "menuBarOnly": false,
+    "newWorkspacePlacement": "afterCurrent",
+    "keepWorkspaceOpenWhenClosingLastSurface": false,
+    "warnBeforeQuit": true,
+    "focusPaneOnFirstClick": false,
+    "reorderOnNotification": false,
+    "sendAnonymousTelemetry": true,
+    "appearance": "system",
+    "workspaceInheritWorkingDirectory": true,
+    "iMessageMode": false,
+    "openMarkdownInCmuxViewer": false,
+    "openSupportedFilesInCmux": true,
+    "commandPaletteSearchesAllSurfaces": false,
+    "language": "system",
+    "minimalMode": false,
+    "renameSelectsExistingName": true,
+    "preferredEditor": "",
+    "warnBeforeClosingTab": true
+  },
+
+  "terminal": {
+    "showScrollBar": true,
+    "autoResumeAgentSessions": true
+  },
+
+  "notifications": {
+    "paneFlash": true,
+    "sound": "default",
+    "hooks": [],
+    "unreadPaneRing": true,
+    "customSoundFilePath": "",
+    "command": "",
+    "hooksMode": "append",
+    "dockBadge": true,
+    "showInMenuBar": true
+  },
+
+  "sidebar": {
+    "showWorkspaceDescription": true,
+    "showPullRequests": true,
+    "showPorts": true,
+    "branchLayout": "vertical",
+    "openPortLinksInCmuxBrowser": true,
+    "showProgress": true,
+    "showBranchDirectory": true,
+    "showNotificationMessage": true,
+    "showCustomMetadata": true,
+    "makePullRequestsClickable": true,
+    "hideAllDetails": false,
+    "showLog": true,
+    "openPullRequestLinksInCmuxBrowser": true,
+    "showSSH": true
+  },
+
+  "workspaceColors": {
+    "colors": {
+      "Amber": "#7D6608",
+      "Indigo": "#283593",
+      "Charcoal": "#3E4B5E",
+      "Magenta": "#AD1457",
+      "Blue": "#1565C0",
+      "Teal": "#006B6B",
+      "Red": "#C0392B",
+      "Crimson": "#922B21",
+      "Olive": "#4A5C18",
+      "Rose": "#880E4F",
+      "Green": "#196F3D",
+      "Aqua": "#0E6B8C",
+      "Brown": "#7B3F00",
+      "Orange": "#A04000",
+      "Navy": "#1A5276",
+      "Purple": "#6A1B9A"
+    },
+    "indicatorStyle": "solidFill",
+    "notificationBadgeColor": null,
+    "selectionColor": null
+  },
+
+  "sidebarAppearance": {
+    "tintOpacity": 0.17999999999999999,
+    "matchTerminalBackground": true,
+    "darkModeTintColor": null,
+    "tintColor": "#000000",
+    "lightModeTintColor": null
+  },
+
+  "automation": {
+    "cursorIntegration": true,
+    "socketControlMode": "cmuxOnly",
+    "portBase": 9100,
+    "claudeBinaryPath": "",
+    "claudeCodeIntegration": true,
+    "geminiIntegration": true,
+    "socketPassword": "",
+    "portRange": 10
+  },
+
+  "browser": {
+    "reactGrabVersion": "0.1.29",
+    "defaultSearchEngine": "google",
+    "interceptTerminalOpenCommandInCmuxBrowser": true,
+    "theme": "system",
+    "insecureHttpHostsAllowedInEmbeddedBrowser": [
+      "localhost",
+      "*.localhost",
+      "127.0.0.1",
+      "::1",
+      "0.0.0.0",
+      "*.localtest.me"
+    ],
+    "showSearchSuggestions": true,
+    "openTerminalLinksInCmuxBrowser": true,
+    "urlsToAlwaysOpenExternally": [],
+    "hostsToOpenInEmbeddedBrowser": [],
+    "showImportHintOnBlankTabs": true
+  },
+
+  "shortcuts": {
+    "bindings": {
+      "toggleSidebar": "cmd+b",
+      "findNext": "cmd+g",
+      "browserZoomOut": "cmd+-",
+      "equalizeSplits": "cmd+ctrl+=",
+      "triggerFlash": "cmd+shift+h",
+      "closeTab": "cmd+w",
+      "toggleFullScreen": "cmd+ctrl+f",
+      "nextSurface": "cmd+shift+]",
+      "focusBrowserAddressBar": "cmd+l",
+      "reopenPreviousSession": "cmd+shift+o",
+      "showNotifications": "cmd+i",
+      "prevSurface": "cmd+shift+[",
+      "focusRightSidebar": "cmd+shift+e",
+      "splitRight": "cmd+d",
+      "toggleFileExplorer": "cmd+opt+b",
+      "commandPaletteNext": "ctrl+n",
+      "commandPalettePrevious": "ctrl+p",
+      "jumpToUnread": "cmd+shift+u",
+      "selectWorkspaceByNumber": "cmd+1",
+      "splitBrowserDown": "cmd+shift+opt+d",
+      "reopenClosedBrowserPanel": "cmd+shift+t",
+      "splitDown": "cmd+shift+d",
+      "toggleBrowserDeveloperTools": "cmd+opt+i",
+      "openSettings": "cmd+,",
+      "openFolder": "cmd+o",
+      "goToWorkspace": "cmd+p",
+      "globalSearch": "cmd+opt+f",
+      "renameTab": "cmd+r",
+      "splitBrowserRight": "cmd+opt+d",
+      "find": "cmd+f",
+      "markOldestUnreadAndJumpNext": "cmd+ctrl+u",
+      "browserZoomIn": "cmd+=",
+      "browserReload": "cmd+r",
+      "browserZoomReset": "cmd+0",
+      "newTab": "cmd+n",
+      "toggleTerminalCopyMode": "cmd+shift+m",
+      "sendFeedback": "",
+      "focusRight": "cmd+opt+→",
+      "focusUp": "cmd+opt+↑",
+      "commandPalette": "cmd+shift+p",
+      "hideFind": "cmd+shift+opt+f",
+      "newWindow": "cmd+shift+n",
+      "focusLeft": "cmd+opt+←",
+      "showHideAllWindows": "cmd+opt+ctrl+.",
+      "renameWorkspace": "cmd+shift+r",
+      "findInDirectory": "cmd+shift+f",
+      "showBrowserJavaScriptConsole": "cmd+opt+c",
+      "focusDown": "cmd+opt+↓",
+      "closeWorkspace": "cmd+shift+w",
+      "quit": "cmd+q",
+      "editWorkspaceDescription": "cmd+opt+e",
+      "closeWindow": "cmd+ctrl+w",
+      "saveFilePreview": "cmd+s",
+      "openBrowser": "cmd+shift+l",
+      "findPrevious": "cmd+opt+g",
+      "useSelectionForFind": "cmd+e",
+      "selectSurfaceByNumber": "ctrl+1",
+      "reloadConfiguration": "cmd+shift+,",
+      "browserBack": "cmd+[",
+      "nextSidebarTab": "cmd+ctrl+]",
+      "browserForward": "cmd+]",
+      "toggleSplitZoom": "cmd+shift+\r",
+      "prevSidebarTab": "cmd+ctrl+[",
+      "closeOtherTabsInPane": "cmd+opt+t",
+      "toggleReactGrab": "cmd+shift+g",
+      "newSurface": "cmd+t"
+    }
+  }
+}
