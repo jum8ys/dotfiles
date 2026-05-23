@@ -1,9 +1,11 @@
 # https://ghostty.org/docs/config/reference
 
 # Font
-font-family = Menlo Regular
-font-family = Osaka-Mono
-font-size = 13
+# font-family = Menlo Regular
+# font-family = Osaka-Mono
+# font-size = 13
+font-family = HackGen Console NF
+font-size = 14
 
 # Theme
 # theme = iTerm2 Pastel Dark Background
