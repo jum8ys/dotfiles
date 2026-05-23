@@ -1,7 +1,10 @@
 snippets:
+  - name: "[v] nvim"
+    keyword: v
+    snippet: nvim
   - name: "[nvimtutor1] start nvim tutor (part 1)"
     keyword: nvimtutor1
-    snippet: 'nvim -c "Tutor ja/vim-01-beginner"'
+    snippet: 'nvim --clean -c "Tutor ja/vim-01-beginner"'
   - name: "[nvimtutor2] start nvim tutor (part 2)"
     keyword: nvimtutor2
-    snippet: 'nvim -c "Tutor ja/vim-02-beginner"'
+    snippet: 'nvim --clean -c "Tutor ja/vim-02-beginner"'
