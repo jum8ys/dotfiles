@@ -4,7 +4,8 @@
 # font-family = Menlo Regular
 # font-family = Osaka-Mono
 # font-size = 13
-font-family = HackGen Console NF
+# font-family = HackGen Console NF
+font-family = JetBrainsMono Nerd Font Mono
 font-size = 14
 
 # Theme
@@ -24,6 +25,7 @@ unfocused-split-opacity = 0.6
 # Behavior
 focus-follows-mouse = false
 window-save-state = default
+macos-option-as-alt = true
 
 # Shell
 shell-integration = detect
