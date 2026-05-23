@@ -1,6 +1,6 @@
-README.md
+**/README.md
+**/LICENSE
 CLAUDE.md
-LICENSE
 Makefile
 .chezmoidata.toml.example
 .zshrc.local.example
