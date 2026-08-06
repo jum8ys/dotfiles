@@ -1,27 +1,55 @@
+tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: true
 tap "laishulu/homebrew"
 tap "xwmx/taps"
+# All in one for **env
 brew "anyenv"
+# Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Lint commit messages according to a commit convention
 brew "commitlint"
+# GNU File, Shell, and Text utilities
 brew "coreutils"
+# Interactive Commitizen CLI that generate standardized commit messages
 brew "czg"
+# TIFF library and utilities
+brew "libtiff"
+# Secure runtime for JavaScript and TypeScript
 brew "deno"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
 brew "gh"
+# Remote repository management made easy
 brew "ghq"
+# Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Audit git repos for secrets
 brew "gitleaks"
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Simple terminal UI for git commands
 brew "lazygit"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Pinentry for GPG on Mac
 brew "pinentry-mac"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Fast, configurable, shell plugin manager
 brew "sheldon"
+# Send macOS User Notifications from the command-line
 brew "terminal-notifier"
+# CLI for Git worktree management, designed for parallel AI agent workflows
 brew "worktrunk"
+# macOS Input Source Manager
 brew "laishulu/homebrew/macism"
+# CLI plain text note-taking, bookmarking, and knowledge base
 brew "xwmx/taps/nb"
+# A window border system for macOS
+brew "felixkratz/formulae/borders"
 cask "font-hackgen-nerd"
 cask "font-jetbrains-mono-nerd-font"
