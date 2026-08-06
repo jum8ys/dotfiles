@@ -1,6 +1,6 @@
 tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: true
-tap "laishulu/homebrew"
-tap "xwmx/taps"
+tap "laishulu/homebrew", trusted: true
+tap "xwmx/taps", trusted: true
 # All in one for **env
 brew "anyenv"
 # Manage your dotfiles across multiple diverse machines, securely
