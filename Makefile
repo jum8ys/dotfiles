@@ -49,6 +49,7 @@ install: ## Set up this repository on a new machine
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		brew bundle --global; \
+		brew services start borders; \
 		printf "$(GREEN)✓ Done$(RESET)\n"; \
 	else \
 		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
