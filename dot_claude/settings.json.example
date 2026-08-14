@@ -27,7 +27,7 @@
       "Bash(rm -rf:*)",
       "Bash(git reset:*)",
       "Bash(git rebase:*)",
-      "Read(.env.*)",
+      "Read(.env*)",
       "Read(**/id_rsa)",
       "Read(**/id_rsa.pub)",
       "Read(**/id_ed25519)",
@@ -44,8 +44,8 @@
       "Read(**/*passwd*)",
       "Read(**/.chezmoidata.toml)",
       "Read(**/.czrc)",
-      "Write(.env*)",
-      "Write(**/secrets/**)",
+      "Edit(.env*)",
+      "Edit(**/secrets/**)",
       "Bash(curl:*)",
       "Bash(wget:*)",
       "Bash(nc:*)",
@@ -59,7 +59,7 @@
       "Bash(mongod:*)",
       "mcp__supabase__execute_sql"
     ],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "auto"
   },
   "hooks": {
     "PreToolUse": [
@@ -103,6 +103,7 @@
     "command": "~/.claude/scripts/statusline.sh"
   },
   "language": "Japanese",
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
