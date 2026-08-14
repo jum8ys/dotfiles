@@ -9,8 +9,8 @@ gui:
   #     - reverse
 git:
   branchLogCmd: "git log --graph --color=always --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' {{branchName}} --"
-  pagers:
-    - pager: delta --paging=never
+  diffRenderers:
+    - command: delta --paging=never
   allBranchesLogCmds:
     - git log --graph --color=always --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
 customCommands:
