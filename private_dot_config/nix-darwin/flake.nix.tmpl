@@ -1,0 +1,38 @@
+{
+  description = "nix-darwin system configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nix-darwin, nixpkgs, home-manager }:
+  let
+    system = "aarch64-darwin";
+  in
+  {
+    darwinConfigurations."{{ .chezmoi.hostname }}" = nix-darwin.lib.darwinSystem {
+      inherit system;
+      modules = [
+        ./darwin-configuration.nix
+        home-manager.darwinModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.{{ .chezmoi.username }} = import ./home.nix;
+          };
+        }
+      ];
+    };
+  };
+}

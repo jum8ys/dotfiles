@@ -1,0 +1,12 @@
+{ pkgs, ... }:
+
+{
+  home.username = "{{ .chezmoi.username }}";
+  home.homeDirectory = "{{ .chezmoi.homeDir }}";
+
+  home.packages = with pkgs; [
+    tirith
+  ];
+
+  home.stateVersion = "26.05";
+}
