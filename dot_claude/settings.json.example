@@ -110,5 +110,6 @@
   },
   "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true,
+  "outputStyle": "Concise",
   "voiceEnabled": true
 }
