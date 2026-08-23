@@ -23,6 +23,12 @@ After completing each step in a multi-step task, summarize what was done, what w
 **Rule 7 — Fail Loud.**
 Surface uncertainty explicitly. Never present a partial or unverified result as complete. "Done" means verified, not just executed.
 
+## Interaction
+
+- Get approval for irreversible actions — committing, deleting files, rewriting history, force-pushing — through the `AskUserQuestion` tool, not prose. A question asked in prose ends the turn, which invites reading whatever arrives next as consent; only the tool actually waits for an answer
+- Never infer approval from an ambiguous reply. Silence, a topic change, or an unrelated instruction is not a yes
+- Never assert what an earlier message said without being able to point to it. If it cannot be shown, say so instead of reconstructing it
+
 ## Code
 
 - Write comments in English
