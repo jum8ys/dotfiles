@@ -13,7 +13,7 @@ RESET  := \033[0m
 install: ## Set up this repository on a new machine
 	@printf "$(BOLD)$(CYAN)▶ chezmoi dotfiles setup$(RESET)\n"
 	@echo ""
-	@printf "$(BOLD)[1/4] .chezmoidata.toml$(RESET)\n"
+	@printf "$(BOLD)[1/5] .chezmoidata.toml$(RESET)\n"
 	@if [ ! -f .chezmoidata.toml ]; then \
 		cp .chezmoidata.toml.example .chezmoidata.toml; \
 		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
@@ -23,7 +23,7 @@ install: ## Set up this repository on a new machine
 		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[2/4] dot_claude/settings.json$(RESET)\n"
+	@printf "$(BOLD)[2/5] dot_claude/settings.json$(RESET)\n"
 	@if [ ! -f dot_claude/settings.json ]; then \
 		cp dot_claude/settings.json.example dot_claude/settings.json; \
 		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
@@ -31,7 +31,7 @@ install: ## Set up this repository on a new machine
 		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[3/4] chezmoi apply$(RESET)\n"
+	@printf "$(BOLD)[3/5] chezmoi apply$(RESET)\n"
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
 	@chezmoi diff || true
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
@@ -44,7 +44,7 @@ install: ## Set up this repository on a new machine
 		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[4/4] Homebrew packages$(RESET)\n"
+	@printf "$(BOLD)[4/5] Homebrew packages$(RESET)\n"
 	@printf "Run brew bundle --global? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
@@ -53,6 +53,57 @@ install: ## Set up this repository on a new machine
 		printf "$(GREEN)✓ Done$(RESET)\n"; \
 	else \
 		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
+	fi
+	@echo ""
+	@printf "$(BOLD)[5/5] nix-darwin$(RESET)\n"
+	@if ! command -v nix >/dev/null 2>&1; then \
+		printf "      $(YELLOW)→ Nix not installed. Skipping.$(RESET)\n"; \
+	elif [ ! -f $$HOME/.config/nix-darwin/flake.nix ]; then \
+		printf "      $(YELLOW)→ ~/.config/nix-darwin/flake.nix not found (chezmoi apply may have been skipped). Skipping.$(RESET)\n"; \
+	else \
+		printf "Run sudo nix run nix-darwin -- switch --flake ~/.config/nix-darwin? [y/N]: "; \
+		read -r ans; \
+		if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
+			backed_up=""; \
+			backup_failed=0; \
+			for f in /etc/bashrc /etc/zshrc; do \
+				if [ -e "$$f" ] && [ ! -L "$$f" ]; then \
+					if [ -e "$$f.before-nix-darwin" ]; then \
+						printf "      $(YELLOW)→ $$f.before-nix-darwin already exists, leaving $$f as-is.$(RESET)\n"; \
+					else \
+						printf "      $(YELLOW)→ Backing up $$f to $$f.before-nix-darwin$(RESET)\n"; \
+						if sudo mv "$$f" "$$f.before-nix-darwin"; then \
+							backed_up="$$backed_up $$f"; \
+						else \
+							backup_failed=1; \
+						fi; \
+					fi; \
+				fi; \
+			done; \
+			if [ "$$backup_failed" = "1" ]; then \
+				printf "      $(YELLOW)⚠ Backup failed. Restoring and aborting.$(RESET)\n"; \
+				for f in $$backed_up; do \
+					if ! sudo mv "$$f.before-nix-darwin" "$$f"; then \
+						printf "      $(YELLOW)⚠ Failed to restore $$f from $$f.before-nix-darwin. Please restore it manually.$(RESET)\n"; \
+					fi; \
+				done; \
+				exit 1; \
+			fi; \
+			if sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake $$HOME/.config/nix-darwin; then \
+				printf "      $(GREEN)✓ Done$(RESET)\n"; \
+			else \
+				printf "      $(YELLOW)⚠ Failed. See error above.$(RESET)\n"; \
+				for f in $$backed_up; do \
+					printf "      $(YELLOW)→ Restoring $$f$(RESET)\n"; \
+					if ! sudo mv "$$f.before-nix-darwin" "$$f"; then \
+						printf "      $(YELLOW)⚠ Failed to restore $$f from $$f.before-nix-darwin. Please restore it manually.$(RESET)\n"; \
+					fi; \
+				done; \
+				exit 1; \
+			fi; \
+		else \
+			printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
+		fi; \
 	fi
 	@echo ""
 	@printf "$(BOLD)$(GREEN)✓ Setup complete!$(RESET)\n"
