@@ -45,7 +45,9 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 ## Git
 
 - Do not include `Co-Authored-By` in commit messages
+- Commit messages must be written in English
 - Commit messages must follow Conventional Commits v1.0.0 with a Gitmoji prefix
+- Base the commit message — type, description, and body — on the diff against `HEAD`, not the session's conversation narrative. If a "buggy" version was never actually committed, correcting it before the first commit is not a `fix`, and the message should state what the change adds/does, not the debugging story that led to it
 - Before running `git commit`, always show the planned command including the full commit message
 - Ask for confirmation before running `git push`
 - Split commits by logical unit of change — one concern per commit (e.g. separate refactors, feature additions, and config changes into distinct commits)
