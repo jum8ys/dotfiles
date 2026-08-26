@@ -32,6 +32,7 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 ## Code
 
 - Write comments in English
+- Prefer explaining *why* over *what* — the code already shows what it does; comment only when the reasoning, trade-off, or non-obvious behavior isn't otherwise clear
 - Ask for confirmation before adding new packages or dependencies
 
 ## Commands
