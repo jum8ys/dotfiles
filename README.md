@@ -75,12 +75,20 @@ sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- sw
 
 ### Making changes
 
-Edit `darwin-configuration.nix.tmpl` (macOS system settings) or `home.nix.tmpl` (`home.packages`), then:
+Edit `darwin-configuration.nix.tmpl` (macOS system settings) or `nix/packages.nix` (`home.packages`), then:
+
+```shell
+make rebuild
+```
+
+`make rebuild` shows `chezmoi diff` and asks for confirmation before applying, since `chezmoi apply` deploys every dotfile — not just the nix-darwin ones. It then runs:
 
 ```shell
 chezmoi apply
 sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 ```
+
+Files under `nix/` carry no chezmoi template syntax, so edit and commit them directly; `chezmoi apply` only copies them across. Machine-specific values stay in the `*.nix.tmpl` entry files.
 
 > **Note:** `flake.lock` is tracked in chezmoi like any other file, so every machine builds the same pinned nixpkgs/nix-darwin/home-manager revisions. After running `nix flake update`, sync the change back with `chezmoi re-add`.
 
