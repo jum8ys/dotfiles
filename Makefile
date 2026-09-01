@@ -8,7 +8,7 @@ YELLOW := \033[33m
 CYAN   := \033[36m
 RESET  := \033[0m
 
-.PHONY: install local-claude-rules local-zshrc
+.PHONY: install rebuild local-claude-rules local-zshrc
 
 install: ## Set up this repository on a new machine
 	@printf "$(BOLD)$(CYAN)▶ chezmoi dotfiles setup$(RESET)\n"
@@ -107,6 +107,21 @@ install: ## Set up this repository on a new machine
 	fi
 	@echo ""
 	@printf "$(BOLD)$(GREEN)✓ Setup complete!$(RESET)\n"
+
+rebuild: ## Re-apply dotfiles and rebuild nix-darwin (routine counterpart to install)
+	@printf "$(BOLD)$(CYAN)▶ chezmoi diff$(RESET)\n"
+	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
+	@chezmoi diff
+	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
+	@printf "Run chezmoi apply and rebuild nix-darwin? [y/N]: "; \
+	read -r ans; \
+	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
+		chezmoi apply -v || exit 1; \
+		sudo darwin-rebuild switch --flake $$HOME/.config/nix-darwin || exit 1; \
+		printf "$(GREEN)✓ Done$(RESET)\n"; \
+	else \
+		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
+	fi
 
 local-claude-rules: ## Copy dot_claude/CLAUDE.local.md from example (machine-specific Claude Code rules)
 	@if [ ! -f dot_claude/CLAUDE.local.md ]; then \
