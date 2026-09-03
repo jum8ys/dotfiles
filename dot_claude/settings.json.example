@@ -59,7 +59,8 @@
       "Bash(mongod:*)",
       "mcp__supabase__execute_sql"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "blockReadsOutsideWorkingDirectories": true
   },
   "hooks": {
     "PreToolUse": [
@@ -102,14 +103,19 @@
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
   },
+  "outputStyle": "Concise",
   "language": "Japanese",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
+    "modelSettings": {
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true,
-  "outputStyle": "Concise",
   "voiceEnabled": true
 }
