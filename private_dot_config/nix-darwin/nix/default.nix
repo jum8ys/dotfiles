@@ -19,6 +19,7 @@
 
 {
   imports = [
+    ./agent-skills.nix
     ./packages.nix
   ];
 }
