@@ -39,9 +39,9 @@ install: ## Set up this repository on a new machine
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		chezmoi apply -v; \
-		printf "$(GREEN)✓ Applied$(RESET)\n"; \
+		printf "      $(GREEN)✓ Applied$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
+		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
 	@printf "$(BOLD)[4/5] Homebrew packages$(RESET)\n"
@@ -50,9 +50,9 @@ install: ## Set up this repository on a new machine
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		brew bundle --global; \
 		brew services start borders; \
-		printf "$(GREEN)✓ Done$(RESET)\n"; \
+		printf "      $(GREEN)✓ Done$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
+		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
 	@printf "$(BOLD)[5/5] nix-darwin$(RESET)\n"
@@ -109,18 +109,29 @@ install: ## Set up this repository on a new machine
 	@printf "$(BOLD)$(GREEN)✓ Setup complete!$(RESET)\n"
 
 rebuild: ## Re-apply dotfiles and rebuild nix-darwin (routine counterpart to install)
-	@printf "$(BOLD)$(CYAN)▶ chezmoi diff$(RESET)\n"
+	@printf "$(BOLD)$(CYAN)▶ apply & rebuild$(RESET)\n"
+	@echo ""
+	@printf "$(BOLD)[1/2] chezmoi apply$(RESET)\n"
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
 	@chezmoi diff
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
-	@printf "Run chezmoi apply and rebuild nix-darwin? [y/N]: "; \
+	@printf "Run chezmoi apply? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
 		chezmoi apply -v || exit 1; \
-		sudo darwin-rebuild switch --flake $$HOME/.config/nix-darwin || exit 1; \
-		printf "$(GREEN)✓ Done$(RESET)\n"; \
+		printf "      $(GREEN)✓ Applied$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)→ Skipped.$(RESET)\n"; \
+		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
+	fi
+	@echo ""
+	@printf "$(BOLD)[2/2] nix-darwin$(RESET)\n"
+	@printf "Run sudo darwin-rebuild switch? [y/N]: "; \
+	read -r ans; \
+	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
+		sudo darwin-rebuild switch --flake $$HOME/.config/nix-darwin || exit 1; \
+		printf "      $(GREEN)✓ Done$(RESET)\n"; \
+	else \
+		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 
 local-claude-rules: ## Copy dot_claude/CLAUDE.local.md from example (machine-specific Claude Code rules)
