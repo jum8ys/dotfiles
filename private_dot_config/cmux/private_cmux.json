@@ -153,7 +153,7 @@
     "showBranchDirectory" : true,
     "showCustomMetadata" : true,
     "showLog" : true,
-    "showNotificationMessage" : true,
+    "showNotificationMessage" : false,
     "showPorts" : true,
     "showProgress" : true,
     "showPullRequests" : true,
