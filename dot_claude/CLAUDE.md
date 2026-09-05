@@ -69,8 +69,9 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 - `type` and `description` are mandatory; `scope` is optional (in parentheses)
 - `description`: lowercase, no trailing period
 - Body and footers are each separated from the preceding section by a blank line
-- Body is **optional** — omit it when the subject already conveys intent and motivation
-- When a body is needed, use concise `- ` bullet points (not prose) and focus on the *why* (motivation, prior context, side effects, test rationale) — not the *what* that the diff already shows
+- **Default to subject only.** Most commits need no body. Add one ONLY when the reason for the change cannot be inferred from the subject and the diff together — a non-obvious trade-off, a workaround for external behavior, or a side effect a reader would not expect
+- A body that restates the subject, narrates the session, or describes the *what* the diff already shows must be dropped, not shortened
+- When a body genuinely earns its place, use concise `- ` bullet points (not prose) and keep it to the *why*
 - Breaking change: append `!` after type/scope and add `BREAKING CHANGE: <details>` footer
 
 **Type → Emoji:**
