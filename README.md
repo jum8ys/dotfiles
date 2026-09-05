@@ -43,7 +43,7 @@ The setup walks you through these steps.
 1. Creating `.chezmoidata.toml` from the example and opening it in your editor
 2. Creating `dot_claude/settings.json` from the example for machine-specific Claude Code settings
 3. Previewing and applying changes with `chezmoi apply`
-4. Installing Homebrew packages with `brew bundle --global`
+4. Installing Homebrew packages with `brew bundle --global`, then starting the `borders` service
 5. Bootstrapping [nix-darwin](#nix-darwin-macos-system-config) if Nix is installed
 
 The following are optional and can be set up independently.
@@ -73,6 +73,8 @@ Source lives in `private_dot_config/nix-darwin/` (deploys to `~/.config/nix-darw
 sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake ~/.config/nix-darwin
 ```
 
+> **Note:** nix-darwin aborts with `Unexpected files in /etc` if `/etc/bashrc` or `/etc/zshrc` is a plain file, so `make install` moves each to `<file>.before-nix-darwin` with `sudo` before switching.
+
 ### Making changes
 
 Edit `darwin-configuration.nix.tmpl` (macOS system settings) or `nix/packages.nix` (`home.packages`), then:
@@ -81,12 +83,14 @@ Edit `darwin-configuration.nix.tmpl` (macOS system settings) or `nix/packages.ni
 make rebuild
 ```
 
-`make rebuild` shows `chezmoi diff` and asks for confirmation before applying, since `chezmoi apply` deploys every dotfile — not just the nix-darwin ones. It then runs:
+`make rebuild` shows `chezmoi diff`, then asks about each step separately so either can be skipped:
 
 ```shell
-chezmoi apply
-sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+chezmoi apply                                             # [1/2]
+sudo darwin-rebuild switch --flake ~/.config/nix-darwin   # [2/2]
 ```
+
+The steps are confirmed separately so a nix-darwin rebuild can run without redeploying every dotfile.
 
 Files under `nix/` carry no chezmoi template syntax, so edit and commit them directly; `chezmoi apply` only copies them across. Machine-specific values stay in the `*.nix.tmpl` entry files.
 
