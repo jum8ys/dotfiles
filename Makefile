@@ -8,7 +8,7 @@ YELLOW := \033[33m
 CYAN   := \033[36m
 RESET  := \033[0m
 
-.PHONY: install rebuild local-claude-rules local-zshrc
+.PHONY: install rebuild update local-claude-rules local-zshrc
 
 install: ## Set up this repository on a new machine
 	@printf "$(BOLD)$(CYAN)▶ chezmoi dotfiles setup$(RESET)\n"
@@ -133,6 +133,11 @@ rebuild: ## Re-apply dotfiles and rebuild nix-darwin (routine counterpart to ins
 	else \
 		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
+
+update: ## Bump all flake inputs, rebuild nix-darwin, and sync flake.lock back to source
+	@nix flake update --flake $$HOME/.config/nix-darwin
+	@sudo darwin-rebuild switch --flake $$HOME/.config/nix-darwin
+	@chezmoi re-add $$HOME/.config/nix-darwin/flake.lock
 
 local-claude-rules: ## Copy dot_claude/CLAUDE.local.md from example (machine-specific Claude Code rules)
 	@if [ ! -f dot_claude/CLAUDE.local.md ]; then \
