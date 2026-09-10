@@ -117,15 +117,15 @@
   },
   "outputStyle": "Concise",
   "language": "Japanese",
+  "modelSettings": {
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
-  },
-    "modelSettings": {
-    "claude-sonnet-5": {
-      "effortLevel": "xhigh"
-    }
   },
   "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true,
