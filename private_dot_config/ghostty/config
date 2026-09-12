@@ -27,6 +27,10 @@ focus-follows-mouse = false
 window-save-state = default
 macos-option-as-alt = true
 
+# Keybind
+keybind = super+alt+arrow_right=next_tab
+keybind = super+alt+arrow_left=previous_tab
+
 # Shell
 shell-integration = detect
 
