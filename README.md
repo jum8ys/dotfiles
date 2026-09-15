@@ -41,10 +41,9 @@ make install
 The setup walks you through these steps.
 
 1. Creating `.chezmoidata.toml` from the example and opening it in your editor
-2. Creating `dot_claude/settings.json` from the example for machine-specific Claude Code settings
-3. Previewing and applying changes with `chezmoi apply`
-4. Installing Homebrew packages with `brew bundle --global`, then starting the `borders` service
-5. Bootstrapping [nix-darwin](#nix-darwin-macos-system-config) if Nix is installed
+2. Previewing and applying changes with `chezmoi apply`
+3. Installing Homebrew packages with `brew bundle --global`, then starting the `borders` service
+4. Bootstrapping [nix-darwin](#nix-darwin-macos-system-config) if Nix is installed
 
 The following are optional and can be set up independently.
 
@@ -67,7 +66,7 @@ Source lives in `private_dot_config/nix-darwin/` (deploys to `~/.config/nix-darw
 
 ### First-time setup
 
-`make install` runs this for you (step 5/5) if Nix is installed and `~/.config/nix-darwin/` exists. `/etc/nix/nix.conf` doesn't have flakes enabled yet on a fresh Nix install, so the first run needs the flag explicitly — it's harmless to keep on later runs too, so the same command works either way:
+`make install` runs this for you (step 4/4) if Nix is installed and `~/.config/nix-darwin/` exists. `/etc/nix/nix.conf` doesn't have flakes enabled yet on a fresh Nix install, so the first run needs the flag explicitly — it's harmless to keep on later runs too, so the same command works either way:
 
 ```shell
 sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake ~/.config/nix-darwin

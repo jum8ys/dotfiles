@@ -4,5 +4,5 @@ CLAUDE.md
 Makefile
 .chezmoidata.toml.example
 .zshrc.local.example
-.claude/settings.json.example
+.claude/settings.managed.json
 .claude/CLAUDE.local.md.example

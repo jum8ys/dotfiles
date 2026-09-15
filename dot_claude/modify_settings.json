@@ -1,0 +1,12 @@
+#!/bin/sh
+# Claude Code rewrites ~/.claude/settings.json itself (theme, model, ...), so only
+# enforce the keys in settings.managed.json and keep everything else as-is.
+# jq's `*` merges objects recursively; arrays are replaced by the managed value.
+set -eu
+
+current=$(cat)
+# Empty stdin means the target does not exist yet
+[ -n "$current" ] || current='{}'
+
+printf '%s' "$current" |
+	jq --indent 2 -s '.[0] * .[1]' - "$CHEZMOI_SOURCE_DIR/dot_claude/settings.managed.json"

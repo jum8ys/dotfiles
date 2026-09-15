@@ -13,7 +13,7 @@ RESET  := \033[0m
 install: ## Set up this repository on a new machine
 	@printf "$(BOLD)$(CYAN)▶ chezmoi dotfiles setup$(RESET)\n"
 	@echo ""
-	@printf "$(BOLD)[1/5] .chezmoidata.toml$(RESET)\n"
+	@printf "$(BOLD)[1/4] .chezmoidata.toml$(RESET)\n"
 	@if [ ! -f .chezmoidata.toml ]; then \
 		cp .chezmoidata.toml.example .chezmoidata.toml; \
 		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
@@ -23,15 +23,7 @@ install: ## Set up this repository on a new machine
 		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[2/5] dot_claude/settings.json$(RESET)\n"
-	@if [ ! -f dot_claude/settings.json ]; then \
-		cp dot_claude/settings.json.example dot_claude/settings.json; \
-		printf "      $(GREEN)✓ Created from example$(RESET)\n"; \
-	else \
-		printf "      $(YELLOW)→ Already exists. Skipping.$(RESET)\n"; \
-	fi
-	@echo ""
-	@printf "$(BOLD)[3/5] chezmoi apply$(RESET)\n"
+	@printf "$(BOLD)[2/4] chezmoi apply$(RESET)\n"
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
 	@chezmoi diff || true
 	@printf "$(DIM)"; printf '─%.0s' $$(seq 1 40); printf "$(RESET)\n"
@@ -44,7 +36,7 @@ install: ## Set up this repository on a new machine
 		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[4/5] Homebrew packages$(RESET)\n"
+	@printf "$(BOLD)[3/4] Homebrew packages$(RESET)\n"
 	@printf "Run brew bundle --global? [y/N]: "; \
 	read -r ans; \
 	if [ "$$ans" = "y" ] || [ "$$ans" = "Y" ]; then \
@@ -55,7 +47,7 @@ install: ## Set up this repository on a new machine
 		printf "      $(YELLOW)→ Skipped.$(RESET)\n"; \
 	fi
 	@echo ""
-	@printf "$(BOLD)[5/5] nix-darwin$(RESET)\n"
+	@printf "$(BOLD)[4/4] nix-darwin$(RESET)\n"
 	@if ! command -v nix >/dev/null 2>&1; then \
 		printf "      $(YELLOW)→ Nix not installed. Skipping.$(RESET)\n"; \
 	elif [ ! -f $$HOME/.config/nix-darwin/flake.nix ]; then \
