@@ -24,7 +24,7 @@ unfocused-split-opacity = 0.6
 
 # Behavior
 focus-follows-mouse = false
-window-save-state = default
+window-save-state = always
 macos-option-as-alt = true
 
 # Keybind
