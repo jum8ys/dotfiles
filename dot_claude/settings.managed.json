@@ -122,6 +122,9 @@
   },
   "outputStyle": "Concise",
   "language": "Japanese",
+  "env": {
+    "CLAUDE_CODE_DISABLE_MOUSE_CLICKS": "1"
+  },
   "modelSettings": {
     "claude-sonnet-5": {
       "effortLevel": "high"
