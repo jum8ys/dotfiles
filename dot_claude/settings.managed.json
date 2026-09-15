@@ -1,4 +1,9 @@
 {
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "permissions": {
     "allow": [
       "WebSearch",
@@ -119,7 +124,13 @@
   "language": "Japanese",
   "modelSettings": {
     "claude-sonnet-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
+    },
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-fable-5-1": {
+      "effortLevel": "low"
     }
   },
   "tui": "fullscreen",
@@ -130,10 +141,5 @@
   "autoMemoryEnabled": false,
   "theme": "custom:dark-custom",
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
-  }
+  "voiceEnabled": true
 }
