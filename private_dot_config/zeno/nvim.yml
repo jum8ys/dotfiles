@@ -1,7 +1,7 @@
 snippets:
-  - name: "[v] nvim"
+  - name: "[v] nvim ."
     keyword: v
-    snippet: nvim
+    snippet: nvim .
   - name: "[nvimtutor1] start nvim tutor (part 1)"
     keyword: nvimtutor1
     snippet: 'nvim --clean -c "Tutor ja/vim-01-beginner"'
