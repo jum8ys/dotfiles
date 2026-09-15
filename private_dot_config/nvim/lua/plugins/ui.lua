@@ -2,6 +2,12 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      picker = {
+        sources = {
+          files = { hidden = true, ignored = true, exclude = { ".git", ".DS_Store" } },
+          explorer = { hidden = true, ignored = true, exclude = { ".git", ".DS_Store" } },
+        },
+      },
       dashboard = {
         preset = {
           header = [[
