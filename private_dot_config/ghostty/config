@@ -13,11 +13,33 @@ font-size = 14
 # theme = Dark Pastel
 # theme = Builtin Pastel Dark
 # theme = GitHub Dark
-theme = Dracula
+# theme = Dracula
+theme = Catppuccin Mocha
+palette = 0=#45475a
+palette = 1=#f38ba8
+palette = 2=#a6e3a1
+palette = 3=#f9e2af
+palette = 4=#cba6f7
+palette = 5=#f5c2e7
+palette = 6=#94e2d5
+palette = 7=#cdccd2
+palette = 8=#9399b2
+palette = 9=#f37799
+palette = 10=#89d88b
+palette = 11=#ebd391
+palette = 12=#cba6f7
+palette = 13=#f2aede
+palette = 14=#6bd7ca
+palette = 15=#f8f8f2
 # theme = Dracula+
 
 # Background
 background = #000000
+foreground = #f8f8f2
+cursor-color = #f5e0dc
+cursor-text = #11111b
+selection-background = #cba6f7
+selection-foreground = #17171a
 background-opacity = 0.8
 background-blur = 13
 unfocused-split-opacity = 0.6

@@ -1,5 +1,11 @@
 onboarding = false
 
+[theme]
+name = "catppuccin"
+
+[theme.custom]
+accent = "#cba6f7"
+
 [ui.toast]
 delivery = "system"
 
