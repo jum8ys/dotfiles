@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
+  # Load machine-specific settings when present. This file is not managed by chezmoi.
+  imports = lib.optional (builtins.pathExists ./local.nix) ./local.nix;
+
   nix.settings.experimental-features = "nix-command flakes";
 
   system.primaryUser = "{{ .chezmoi.username }}";
