@@ -79,6 +79,10 @@
           {
             "type": "command",
             "command": "~/.claude/scripts/hook-git-restore-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/hook-git-commit-guard.sh"
           }
         ]
       },
