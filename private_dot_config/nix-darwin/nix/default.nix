@@ -20,6 +20,7 @@
 {
   imports = [
     ./agent-skills.nix
+    ./direnv.nix
     ./packages.nix
   ];
 }
