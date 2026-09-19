@@ -2,6 +2,12 @@
 # Claude Code rewrites ~/.claude/settings.json itself (theme, model, ...), so only
 # enforce the keys in settings.managed.json and keep everything else as-is.
 # jq's `*` merges objects recursively; arrays are replaced by the managed value.
+# Exception: other tools write their own entries into the same hooks.<Event>
+# arrays, and they are not installed on every machine, so entries whose command
+# contains one of these substrings are carried over instead of being dropped by
+# the array replacement. Add a substring here to leave another tool's hooks alone.
+#   moshi-hook: Moshi iOS app bridge
+unmanaged_patterns='["moshi-hook"]'
 set -eu
 
 current=$(cat)
@@ -9,4 +15,11 @@ current=$(cat)
 [ -n "$current" ] || current='{}'
 
 printf '%s' "$current" |
-	jq --indent 2 -s '.[0] * .[1]' - "$CHEZMOI_SOURCE_DIR/dot_claude/settings.managed.json"
+	jq --indent 2 --argjson patterns "$unmanaged_patterns" -s '
+		def unmanaged:
+			any(.hooks[]?; (.command // "") as $c | any($patterns[]; . as $p | $c | contains($p)));
+		.[0] as $cur | .[1] as $managed
+		| $cur * $managed
+		| reduce ($managed.hooks // {} | keys[]) as $event (.;
+			.hooks[$event] += [$cur.hooks[$event][]? | select(unmanaged)])
+	' - "$CHEZMOI_SOURCE_DIR/dot_claude/settings.managed.json"
