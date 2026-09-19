@@ -96,17 +96,7 @@
         ]
       }
     ],
-    "Notification": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/scripts/hook-notification.sh"
-          }
-        ]
-      }
-    ],
+    "Notification": [],
     "SessionStart": [
       {
         "matcher": "*",

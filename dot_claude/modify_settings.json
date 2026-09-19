@@ -2,6 +2,8 @@
 # Claude Code rewrites ~/.claude/settings.json itself (theme, model, ...), so only
 # enforce the keys in settings.managed.json and keep everything else as-is.
 # jq's `*` merges objects recursively; arrays are replaced by the managed value.
+# Keys absent from the managed file are left untouched, so to retire a hook keep
+# its event as an empty array there (deleting the key would leave the old hook).
 # Exception: other tools write their own entries into the same hooks.<Event>
 # arrays, and they are not installed on every machine, so entries whose command
 # contains one of these substrings are carried over instead of being dropped by
