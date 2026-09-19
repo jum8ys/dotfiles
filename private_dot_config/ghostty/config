@@ -52,6 +52,11 @@ macos-option-as-alt = true
 # Keybind
 keybind = super+alt+arrow_right=next_tab
 keybind = super+alt+arrow_left=previous_tab
+# Split navigation
+keybind = super+alt+h=goto_split:left
+keybind = super+alt+j=goto_split:down
+keybind = super+alt+k=goto_split:up
+keybind = super+alt+l=goto_split:right
 
 # Shell
 shell-integration = detect
