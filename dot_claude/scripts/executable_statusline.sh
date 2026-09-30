@@ -47,14 +47,15 @@ input=$(cat)
 [ -z "$input" ] && printf "Claude" && exit 0
 
 # ===== Colors =====
-blue='\033[38;2;97;175;239m'
-amber='\033[38;2;229;192;123m'
-cyan='\033[38;2;86;182;194m'
-green='\033[38;2;80;200;120m'
-orange='\033[38;2;255;176;85m'
-yellow='\033[38;2;230;200;0m'
-red='\033[38;2;235;87;87m'
-magenta='\033[38;2;198;120;221m'
+blue='\033[34m'
+amber='\033[33m'
+cyan='\033[36m'
+green='\033[32m'
+bright_green='\033[92m'
+orange='\033[93m'
+yellow='\033[33m'
+red='\033[31m'
+branch_color='\033[38;5;147m'
 dim='\033[2m'
 reset='\033[0m'
 
@@ -116,6 +117,7 @@ add() { [ -z "$out" ] && out+="$1" || out+="${sep}$1"; }
 
 # ===== Extract data =====
 model=$(echo "$input" | jq -r '.model.display_name // empty')
+effort=$(echo "$input" | jq -r '.effort.level // empty')
 cwd=$(echo "$input"   | jq -r '.workspace.current_dir // .cwd // empty')
 used=$(echo "$input"  | jq -r '.context_window.used_percentage // empty')
 
@@ -174,18 +176,30 @@ if [ -n "$model" ]; then
     model_color="$blue"
     case "$model" in *Opus*)  model_color="$amber" ;; *Haiku*) model_color="$cyan" ;; esac
     add "${model_color}${model}${reset}"
+    [ -n "$effort" ] && out+=" ${model_color}${effort}${reset}"
+fi
+
+# Current directory
+if [ -n "$cwd" ]; then
+    display_cwd="$cwd"
+    case "$cwd" in
+        "$HOME" | "$HOME/") display_cwd="~/" ;;
+        "$HOME/"*) display_cwd="~/${cwd#"$HOME/"}" ;;
+    esac
+    add "${bright_green}${display_cwd}${reset}"
 fi
 
 # Git branch
-[ -n "$branch" ] && add "${dim}⎇${reset} ${magenta}${branch}${reset}"
+[ -n "$branch" ] && add "${dim}⎇${reset} ${branch_color}${branch}${reset}"
 
 # Context window %
+ctx_str=""
 if [ -n "$used" ]; then
     ctx_pct=$(printf "%.0f" "$used")
     if   [ "$ctx_pct" -ge 80 ]; then ctx_color="$red"
     elif [ "$ctx_pct" -ge 50 ]; then ctx_color="$orange"
     else ctx_color="$cyan"; fi
-    add "${dim}ctx${reset} ${ctx_color}${ctx_pct}%${reset}"
+    ctx_str="${dim}ctx${reset} ${ctx_color}${ctx_pct}%${reset}"
 fi
 
 # Rate limits — 5h
@@ -238,6 +252,10 @@ if [ -n "$rl_seven" ]; then
     fi
 fi
 
+if [ -n "$rl_five" ] || [ -n "$rl_seven" ] || [ -z "$cost_usd" ]; then
+    [ -n "$ctx_str" ] && add "$ctx_str"
+fi
+
 # Cache hit rate — also shown alongside rate limits
 if [ -n "$rl_five" ] || [ -n "$rl_seven" ]; then
     cache_total=$(( ${cache_read:-0} + ${cache_create:-0} ))
@@ -262,6 +280,8 @@ if [ -z "$rl_five" ] && [ -z "$rl_seven" ] && [ -n "$cost_usd" ]; then
 
     cost_str="${green}${cost_fmt}${reset}"
     [ -n "$active_rate" ] && cost_str+=" ${dim}${active_rate}/hr${reset}"
+    add "$cost_str"
+    [ -n "$ctx_str" ] && add "$ctx_str"
 
     # Cache hit rate — cache_read / (cache_read + cache_create)
     cache_total=$(( ${cache_read:-0} + ${cache_create:-0} ))
@@ -270,11 +290,8 @@ if [ -z "$rl_five" ] && [ -z "$rl_seven" ] && [ -n "$cost_usd" ]; then
         if   [ "$hit_pct" -ge 80 ]; then cache_color="$green"
         elif [ "$hit_pct" -ge 50 ]; then cache_color="$cyan"
         else cache_color="$orange"; fi
-        add "${cost_str}${sep}${dim}cache${reset} ${cache_color}${hit_pct}%${reset}"
-        cost_str=""
+        add "${dim}cache${reset} ${cache_color}${hit_pct}%${reset}"
     fi
-
-    [ -n "$cost_str" ] && add "$cost_str"
 
     # Cost per 1k tokens + net lines
     total_tokens=$(( ${total_input:-0} + ${total_output:-0} ))
