@@ -202,6 +202,12 @@ if [ -n "$used" ]; then
     ctx_str="${dim}ctx${reset} ${ctx_color}${ctx_pct}%${reset}"
 fi
 
+first_line=""
+if [ -n "$out" ] && { [ -n "$rl_five" ] || [ -n "$rl_seven" ]; }; then
+    first_line="$out"
+    out=""
+fi
+
 # Rate limits — 5h
 if [ -n "$rl_five" ]; then
     f=$(printf "%.0f" "$rl_five")
@@ -333,6 +339,34 @@ if [ -z "$rl_five" ] && [ -z "$rl_seven" ] && [ -n "$cost_usd" ]; then
             period_fmt=$(printf "$%.2f" "$period_total")
             add "${bgt_color}${period_fmt}/${budget}${time_left_fmt}${reset}"
         fi
+    fi
+fi
+
+if [ -n "$first_line" ]; then
+    combined="${first_line}${sep}${out}"
+    fits=false
+    case "${COLUMNS:-}" in
+        "" | *[!0-9]*) ;;
+        *)
+            # Reserve the footer indentation; wcwidth handles wide and combining characters.
+            width=$(printf "%b" "$combined" | python3 -c '
+import ctypes
+import re
+import sys
+
+wcwidth = ctypes.CDLL(None).wcwidth
+wcwidth.argtypes = [ctypes.c_wchar]
+wcwidth.restype = ctypes.c_int
+plain = re.sub(r"\x1b\[[0-9;]*m", "", sys.stdin.read())
+print(sum(max(0, wcwidth(char)) for char in plain))
+' 2>/dev/null)
+            [ -n "$width" ] && [ "$width" -le "$((10#$COLUMNS - 2))" ] && fits=true
+            ;;
+    esac
+    if [ "$fits" = true ]; then
+        out="$combined"
+    else
+        printf "%b\n" "$first_line"
     fi
 fi
 
