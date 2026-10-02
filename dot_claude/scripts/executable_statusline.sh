@@ -176,7 +176,21 @@ if [ -n "$model" ]; then
     model_color="$blue"
     case "$model" in *Opus*)  model_color="$amber" ;; *Haiku*) model_color="$cyan" ;; esac
     add "${model_color}${model}${reset}"
-    [ -n "$effort" ] && out+=" ${model_color}${effort}${reset}"
+    if [ -n "$effort" ]; then
+        # Match the effort picker in Claude Code's dark theme.
+        effort_color="$model_color"
+        case "$effort" in
+            low)    effort_color='\033[1;38;2;255;193;7m' ;;
+            medium) effort_color='\033[1;38;2;78;186;101m' ;;
+            high)   effort_color='\033[1;38;2;177;185;249m' ;;
+            xhigh)  effort_color='\033[1;38;2;175;135;255m' ;;
+        esac
+        effort_display="${effort_color}${effort}"
+        if [ "$effort" = "max" ]; then
+            effort_display='\033[1;38;2;255;80;80mm\033[1;38;2;255;210;50ma\033[1;38;2;80;160;255mx'
+        fi
+        out+=" ${effort_display}${reset}"
+    fi
 fi
 
 # Current directory

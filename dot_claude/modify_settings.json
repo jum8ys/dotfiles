@@ -22,6 +22,7 @@ printf '%s' "$current" |
 			any(.hooks[]?; (.command // "") as $c | any($patterns[]; . as $p | $c | contains($p)));
 		.[0] as $cur | .[1] as $managed
 		| $cur * $managed
+		| del(.statusLine.refreshInterval)
 		| reduce ($managed.hooks // {} | keys[]) as $event (.;
 			.hooks[$event] += [$cur.hooks[$event][]? | select(unmanaged)])
 	' - "$CHEZMOI_SOURCE_DIR/dot_claude/settings.managed.json"
