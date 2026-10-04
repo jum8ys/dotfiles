@@ -38,9 +38,11 @@ Surface uncertainty explicitly. Never present a partial or unverified result as 
 ## Commands
 
 - Before running any command, briefly explain in plain language what it will do (in Japanese)
-- Use the `Read` tool instead of `cat`, `head`, or `tail` to read files
-- Use the `Edit` tool instead of `sed` or `awk` to edit files
-- Use the `Write` tool instead of `echo >` or heredoc to write files
+- Minimize permission prompts: when several routes reach the same result, take the one that runs without asking. Rules elsewhere that require asking first still apply
+  - Write and edit file contents with the dedicated tools — `Edit`/`Write` in Claude Code, `apply_patch` in Codex — not by running scripts or one-liners (`sed -i`, `perl -i`, `python -c`, `node -e`, `echo`/`cat <<EOF` redirected into a file, or similar), even when one looks simpler. Purpose-built commands such as `cp`, `mv`, `mkdir`, formatters, and code generators are fine
+  - For repetitive changes, make multiple edits; if a script is truly better (e.g. hundreds of files), ask first
+  - In Claude Code, read files with `Read`, not `cat`/`head`/`tail`/`sed -n`; in Codex, read-only shell commands are fine
+  - Never take another route to get around a block or prompt that guards specific files (denied or protected paths, sandbox, paths outside the working directories) — tell the user instead (in Claude Code, suggest `/add-dir` for an outside path)
 - Use `gh` CLI for all GitHub operations instead of `curl` API calls
 
 ## Git
