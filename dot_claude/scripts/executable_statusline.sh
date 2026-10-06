@@ -194,17 +194,42 @@ if [ -n "$model" ]; then
 fi
 
 # Current directory
+directory_line=""
 if [ -n "$cwd" ]; then
     display_cwd="$cwd"
     case "$cwd" in
         "$HOME" | "$HOME/") display_cwd="~/" ;;
         "$HOME/"*) display_cwd="~/${cwd#"$HOME/"}" ;;
     esac
-    add "${bright_green}${display_cwd}${reset}"
+    directory_line="📁 ${bright_green}${display_cwd}${reset}"
 fi
 
 # Git branch
-[ -n "$branch" ] && add "${dim}⎇${reset} ${branch_color}${branch}${reset}"
+branch_line=""
+if [ -n "$branch" ]; then
+    branch_line="🌿 ${branch_color}${branch}${reset}"
+    if git_status=$(git -C "$cwd" --no-optional-locks status --porcelain=v2 --branch 2>/dev/null); then
+        # Porcelain v2 separates index/worktree changes and upstream divergence.
+        read -r ahead behind staged modified untracked conflicted < <(
+            printf '%s\n' "$git_status" | awk '
+                /^# branch\.ab / { a = substr($3, 2); b = substr($4, 2) }
+                /^[12] / { if (substr($2, 1, 1) != ".") s++; if (substr($2, 2, 1) != ".") m++ }
+                /^u / { c++ }
+                /^\? / { u++ }
+                END { print a + 0, b + 0, s + 0, m + 0, u + 0, c + 0 }')
+        state_str=""
+        [ "$ahead" -gt 0 ] && state_str+="${cyan}↑${ahead}${reset}"
+        [ "$behind" -gt 0 ] && state_str+="${yellow}↓${behind}${reset}"
+        [ "$staged" -gt 0 ] && state_str+="${green}+${staged}${reset}"
+        [ "$modified" -gt 0 ] && state_str+="${yellow}!${modified}${reset}"
+        [ "$untracked" -gt 0 ] && state_str+="${cyan}?${untracked}${reset}"
+        [ "$conflicted" -gt 0 ] && state_str+="${red}×${conflicted}${reset}"
+        if [ "$(( staged + modified + untracked + conflicted ))" -eq 0 ]; then
+            state_str+="${green}✓${reset}"
+        fi
+        [ -n "$state_str" ] && branch_line+=" ${state_str}"
+    fi
+fi
 
 # Context window %
 ctx_str=""
@@ -214,12 +239,6 @@ if [ -n "$used" ]; then
     elif [ "$ctx_pct" -ge 50 ]; then ctx_color="$orange"
     else ctx_color="$cyan"; fi
     ctx_str="${dim}ctx${reset} ${ctx_color}${ctx_pct}%${reset}"
-fi
-
-first_line=""
-if [ -n "$out" ] && { [ -n "$rl_five" ] || [ -n "$rl_seven" ]; }; then
-    first_line="$out"
-    out=""
 fi
 
 # Rate limits — 5h
@@ -356,32 +375,10 @@ if [ -z "$rl_five" ] && [ -z "$rl_seven" ] && [ -n "$cost_usd" ]; then
     fi
 fi
 
-if [ -n "$first_line" ]; then
-    combined="${first_line}${sep}${out}"
-    fits=false
-    case "${COLUMNS:-}" in
-        "" | *[!0-9]*) ;;
-        *)
-            # Reserve the footer indentation; wcwidth handles wide and combining characters.
-            width=$(printf "%b" "$combined" | python3 -c '
-import ctypes
-import re
-import sys
-
-wcwidth = ctypes.CDLL(None).wcwidth
-wcwidth.argtypes = [ctypes.c_wchar]
-wcwidth.restype = ctypes.c_int
-plain = re.sub(r"\x1b\[[0-9;]*m", "", sys.stdin.read())
-print(sum(max(0, wcwidth(char)) for char in plain))
-' 2>/dev/null)
-            [ -n "$width" ] && [ "$width" -le "$((10#$COLUMNS - 2))" ] && fits=true
-            ;;
-    esac
-    if [ "$fits" = true ]; then
-        out="$combined"
-    else
-        printf "%b\n" "$first_line"
-    fi
-fi
-
 printf "%b\n" "$out"
+if [ -n "$directory_line" ] || [ -n "$branch_line" ]; then
+    printf "%b\n" "$directory_line"
+fi
+if [ -n "$branch_line" ]; then
+    printf "%b\n" "$branch_line"
+fi
