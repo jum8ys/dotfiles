@@ -16,6 +16,7 @@
     herdr
     hunk
     lumen
+    mise
     tirith
   ];
 }

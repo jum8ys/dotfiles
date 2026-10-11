@@ -15,6 +15,8 @@ command -v wt >/dev/null 2>&1 && eval "$(command wt config shell init zsh)"
 command -v tirith >/dev/null 2>&1 && eval "$(command tirith init --shell zsh)"
 # direnv
 command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+# mise
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
 
 # ---------- PATH ----------
 
