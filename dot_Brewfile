@@ -27,8 +27,6 @@ brew "ghq"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# Audit git repos for secrets
-brew "gitleaks"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # Simple terminal UI for git commands
