@@ -3,4 +3,5 @@ if ! command -v betterleaks >/dev/null 2>&1; then
   echo "pre-commit: betterleaks not found; install it via nix-darwin or bypass with --no-verify" >&2
   exit 1
 fi
-betterleaks git --staged
+# Keep the long form: -v means --validate in betterleaks v2 and would send secrets to provider APIs
+betterleaks git --staged --verbose --redact
